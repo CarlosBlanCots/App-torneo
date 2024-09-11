@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Editar Usuario</title>
+=======
+    <title>Edit User</title>
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
     <div class="container">
+<<<<<<< HEAD
         <h1>Editar Usuario</h1>
+=======
+        <h1>Edit User</h1>
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
         <form method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
@@ -28,11 +36,15 @@
                 {{ form.confirm_password(class="form-control", size=32) }}
             </div>
             <div class="form-group">
+<<<<<<< HEAD
                 <label for="is_admin">Admin:</label>
                 {{ form.is_admin() }}
             </div>
             <div class="form-group">
                 {{ form.submit(class="btn btn-primary") }}
+=======
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
             </div>
         </form>
     </div>

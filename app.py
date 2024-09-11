@@ -48,9 +48,13 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+<<<<<<< HEAD
     is_admin = BooleanField('Admin')  # Campo añadido para la edición de usuarios
     submit = SubmitField('Guardar cambios')
 
+=======
+    submit = SubmitField('Sign Up')
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
 
 # Formulario de Login
 class LoginForm(FlaskForm):
@@ -58,6 +62,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+<<<<<<< HEAD
 # Formulario de Edición de Usuario
 class EditUserForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -67,6 +72,8 @@ class EditUserForm(FlaskForm):
     is_admin = BooleanField('Admin')
     submit = SubmitField('Update')
 
+=======
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
 @app.route('/')
 def home():
     if current_user.is_authenticated:
@@ -78,7 +85,12 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
+<<<<<<< HEAD
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+=======
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password,
+                    is_admin=form.is_admin.data)
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
         db.session.add(user)
         db.session.commit()
         flash('Tu cuenta ha sido creada con éxito! Ahora puedes iniciar sesión', 'success')
@@ -120,15 +132,24 @@ def view_users():
 @admin_required
 def edit_user(user_id):
     user = User.query.get_or_404(user_id)
+<<<<<<< HEAD
     form = RegistrationForm(obj=user)  # Usa el formulario con los datos del usuario
+=======
+    form = RegistrationForm(obj=user)
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
     if form.validate_on_submit():
         user.username = form.username.data
         user.email = form.email.data
         if form.password.data:
             user.password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
+<<<<<<< HEAD
         user.is_admin = form.is_admin.data  # Actualiza el campo is_admin
         db.session.commit()
         flash('¡Información del usuario actualizada!', 'success')
+=======
+        db.session.commit()
+        flash('User information updated!', 'success')
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
         return redirect(url_for('view_users'))
     return render_template('edit_user.html', form=form, user=user)
 
@@ -139,7 +160,11 @@ def delete_user(user_id):
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
+<<<<<<< HEAD
     flash('¡Usuario eliminado!', 'success')
+=======
+    flash('User deleted!', 'success')
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
     return redirect(url_for('view_users'))
 
 if __name__ == '__main__':

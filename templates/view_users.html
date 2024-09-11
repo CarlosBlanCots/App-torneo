@@ -22,10 +22,15 @@
         }
         button {
             padding: 5px 10px;
+<<<<<<< HEAD
+=======
+            background-color: #4CAF50;
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
             color: white;
             border: none;
             cursor: pointer;
         }
+<<<<<<< HEAD
         .btn-primary {
             background-color: #4CAF50;
         }
@@ -67,6 +72,15 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+=======
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Users List</h1>
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
     <table>
         <thead>
             <tr>
@@ -84,11 +98,16 @@
                     <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
                     <td>
                         <a href="{{ url_for('edit_user', user_id=user.id) }}">
+<<<<<<< HEAD
                             <button type="button" class="btn-primary">Editar</button>
                         </a>
                         <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
                             <button type="submit" class="btn-danger">Eliminar</button>
                         </form>
+=======
+                            <button type="button">Edit</button>
+                        </a>
+>>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
                     </td>
                 </tr>
             {% endfor %}
