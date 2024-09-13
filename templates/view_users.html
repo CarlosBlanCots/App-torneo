@@ -1,68 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Users</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        button {
-            padding: 5px 10px;
-<<<<<<< HEAD
-=======
-            background-color: #4CAF50;
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-<<<<<<< HEAD
-        .btn-primary {
-            background-color: #4CAF50;
-        }
-        .btn-primary:hover {
-            background-color: #45a049;
-        }
-        .btn-danger {
-            background-color: #f44336;
-        }
-        .btn-danger:hover {
-            background-color: #d32f2f;
-        }
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-    </style>
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <h1>Lista de usuarios</h1>
+    <h1>Lista de Usuarios</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -72,22 +17,13 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-=======
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <h1>Users List</h1>
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
     <table>
         <thead>
             <tr>
-                <th>Username</th>
+                <th>Nombre de Usuario</th>
                 <th>Email</th>
                 <th>Admin</th>
-                <th>Actions</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -95,23 +31,21 @@
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
+                    <td>{{ 'Sí' if user.is_admin else 'No' }}</td>
                     <td>
-                        <a href="{{ url_for('edit_user', user_id=user.id) }}">
-<<<<<<< HEAD
+                        <a href="{{ url_for('user.edit_user', user_id=user.id) }}">
                             <button type="button" class="btn-primary">Editar</button>
                         </a>
-                        <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                        <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
                             <button type="submit" class="btn-danger">Eliminar</button>
                         </form>
-=======
-                            <button type="button">Edit</button>
-                        </a>
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <a href="{{ url_for('user.home') }}">
+        <button type="button" class="btn-secondary">Inicio</button>
+    </a>
 </body>
 </html>

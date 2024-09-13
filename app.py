@@ -1,176 +1,45 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
-from werkzeug.security import generate_password_hash, check_password_hash
-from functools import wraps
+from flask import Flask, redirect, url_for
+from flask_login import LoginManager
+from config import Config
+from models import db
+from models.user import User
+from routes.auth_routes import auth_bp
+from routes.user_routes import user_bp
+from routes.admin_routes import admin_bp
 
-# Configuración básica de la aplicación
+# Inicializa la aplicación Flask
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'a9d5b5f8e1e94f0f8b42e3f8c2e2a7b9'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tournament.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object(Config)
 
-# Inicialización de extensiones
-db = SQLAlchemy(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'
+# Inicializa las extensiones
+db.init_app(app)
 
-# Modelo de Usuario
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), nullable=False, unique=True)
-    email = db.Column(db.String(150), nullable=False, unique=True)
-    password = db.Column(db.String(150), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False)
+# Crea las tablas si no existen
+with app.app_context():
+    db.create_all()
 
-# Cargar el usuario
+# Inicializa el LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'auth.login'  # Define el nombre de la vista de login
+
+# Carga el usuario para la sesión
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Decorador para requerir permisos de administrador
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or not current_user.is_admin:
-            flash('You need to be an admin to access this page.', 'danger')
-            return redirect(url_for('home'))
-        return f(*args, **kwargs)
-    return decorated_function
+# Registra los blueprints
 
-# Formulario de Registro
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-<<<<<<< HEAD
-    is_admin = BooleanField('Admin')  # Campo añadido para la edición de usuarios
-    submit = SubmitField('Guardar cambios')
 
-=======
-    submit = SubmitField('Sign Up')
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
+app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(user_bp, url_prefix='/user')
+app.register_blueprint(admin_bp, url_prefix='/admin')
 
-# Formulario de Login
-class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
-
-<<<<<<< HEAD
-# Formulario de Edición de Usuario
-class EditUserForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    is_admin = BooleanField('Admin')
-    submit = SubmitField('Update')
-
-=======
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
 @app.route('/')
-def home():
-    if current_user.is_authenticated:
-        return render_template('home.html', username=current_user.username)
-    return redirect(url_for('login'))
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
-<<<<<<< HEAD
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-=======
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password,
-                    is_admin=form.is_admin.data)
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
-        db.session.add(user)
-        db.session.commit()
-        flash('Tu cuenta ha sido creada con éxito! Ahora puedes iniciar sesión', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html', form=form)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and check_password_hash(user.password, form.password.data):
-            login_user(user)
-            return redirect(url_for('home'))
-        elif not user:
-            flash('Usuario no registrado', 'danger')
-        else:
-            flash('Contraseña incorrecta', 'danger')
-    return render_template('login.html', form=form)
-
-@app.route('/logout', methods=['GET'])
-@login_required
-def logout():
-    logout_user()
-    flash('Has cerrado sesión con éxito.', 'success')
-    return redirect(url_for('login'))
-
-@app.route('/admin/users')
-@login_required
-def view_users():
-    if not current_user.is_admin:
-        flash('No tiene permisos para acceder al registro', 'danger')
-        return redirect(url_for('home'))
-    users = User.query.all()
-    return render_template('view_users.html', users=users)
-
-@app.route('/admin/edit_user/<int:user_id>', methods=['GET', 'POST'])
-@login_required
-@admin_required
-def edit_user(user_id):
-    user = User.query.get_or_404(user_id)
-<<<<<<< HEAD
-    form = RegistrationForm(obj=user)  # Usa el formulario con los datos del usuario
-=======
-    form = RegistrationForm(obj=user)
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
-    if form.validate_on_submit():
-        user.username = form.username.data
-        user.email = form.email.data
-        if form.password.data:
-            user.password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
-<<<<<<< HEAD
-        user.is_admin = form.is_admin.data  # Actualiza el campo is_admin
-        db.session.commit()
-        flash('¡Información del usuario actualizada!', 'success')
-=======
-        db.session.commit()
-        flash('User information updated!', 'success')
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
-        return redirect(url_for('view_users'))
-    return render_template('edit_user.html', form=form, user=user)
-
-@app.route('/admin/delete_user/<int:user_id>', methods=['POST'])
-@login_required
-@admin_required
-def delete_user(user_id):
-    user = User.query.get_or_404(user_id)
-    db.session.delete(user)
-    db.session.commit()
-<<<<<<< HEAD
-    flash('¡Usuario eliminado!', 'success')
-=======
-    flash('User deleted!', 'success')
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
-    return redirect(url_for('view_users'))
+def index():
+    return redirect(url_for('auth.login'))
 
 if __name__ == '__main__':
-    with app.app_context():
-        try:
-            db.create_all()  # Crea las tablas en la base de datos
-        except Exception as e:
-            print(f'Error al crear tablas: {e}')
     app.run(debug=True)

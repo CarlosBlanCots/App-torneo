@@ -1,55 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Registro</title>
-=======
-    <title>Register</title>
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
     <div class="container">
-<<<<<<< HEAD
         <h1>Registro</h1>
-=======
-        <h1>Register</h1>
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                <ul>
+                <div class="alert-container">
                     {% for category, message in messages %}
-                        <li class="{{ category }}">{{ message }}</li>
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
                     {% endfor %}
-                </ul>
+                </div>
             {% endif %}
         {% endwith %}
-        <form method="POST">
+        <form method="POST" action="{{ url_for('auth.register') }}">
             {{ form.hidden_tag() }}
             <div class="form-group">
-                <label for="username">Username:</label>
-                {{ form.username(class="form-control", size=32) }}
+                <label for="username">Nombre de Usuario:</label>
+                {{ form.username(class="form-control", size=32, placeholder="Nombre de Usuario") }}
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                {{ form.email(class="form-control", size=32) }}
+                {{ form.email(class="form-control", size=32, placeholder="Email") }}
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
-                {{ form.password(class="form-control", size=32) }}
+                <label for="password">Contraseña:</label>
+                {{ form.password(class="form-control", size=32, placeholder="Contraseña") }}
             </div>
             <div class="form-group">
-                <label for="confirm_password">Confirm Password:</label>
-                {{ form.confirm_password(class="form-control", size=32) }}
+                <label for="confirm_password">Confirmar Contraseña:</label>
+                {{ form.confirm_password(class="form-control", size=32, placeholder="Confirmar Contraseña") }}
             </div>
             <div class="form-group">
-<<<<<<< HEAD
-                <button type="submit" class="btn btn-primary">Registrar</button>
-=======
-                {{ form.submit(class="btn btn-primary") }}
->>>>>>> 66da0f74c63a629e66f68b2649ac24aaca31504c
+                {{ form.submit(class="btn btn-primary", value="Registrar") }}
             </div>
         </form>
     </div>
