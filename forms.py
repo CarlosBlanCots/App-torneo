@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
+from models import Game, db
 
 class LoginForm(FlaskForm):
     email = StringField(
@@ -49,6 +50,11 @@ class RegistrationForm(FlaskForm):
             EqualTo('password', message="Las contraseñas no coinciden")
         ]
     )
+    games = SelectMultipleField(
+        'Selecciona los juegos en los que participarás',
+        choices=[],  # Inicializamos la lista de opciones vacía
+        validators=[DataRequired(message="Debes seleccionar al menos un juego")]
+    )
     submit = SubmitField('Registrar')
 
 class EditUserForm(FlaskForm):
@@ -79,4 +85,18 @@ class EditUserForm(FlaskForm):
         ]
     )
     is_admin = BooleanField('Administrador')
+
+    games = SelectMultipleField(
+        'Selecciona los juegos en los que participará el usuario',
+        choices=[],
+        validators=[DataRequired(message="Debes seleccionar al menos un juego")]
+    )
     submit = SubmitField('Guardar Cambios')
+
+class GameSelectionForm(FlaskForm):
+    games = SelectMultipleField(
+        'Selecciona los juegos',
+        choices=[],  # Inicializamos la lista de opciones vacía
+        validators=[DataRequired(message="Debes seleccionar al menos un juego")]
+    )
+    submit = SubmitField('Guardar Selección')

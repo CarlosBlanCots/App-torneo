@@ -132,3 +132,11 @@ a.edit-link:hover {
 .btn-home:hover {
     background-color: #0056b3;
 }
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    margin-right: 10px; /* Asegura que el texto no esté demasiado pegado al checkbox */
+}
