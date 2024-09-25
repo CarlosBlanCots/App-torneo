@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control - Administrador</title>
+</head>
+<body>
+    <h1>Panel de Control</h1>
+    <h2>Participantes Registrados</h2>
+    <ul>
+        {% for participant in participants %}
+            <li>{{ participant.name }}</li>  <!-- Cambia según tu modelo -->
+        {% endfor %}
+    </ul>
+    <h2>Juegos</h2>
+    <ul>
+        {% for game in games %}
+            <li>{{ game.name }}</li>  <!-- Cambia según tu modelo -->
+        {% endfor %}
+    </ul>
+    <!-- Aquí puedes agregar más secciones -->
+</body>
+</html>

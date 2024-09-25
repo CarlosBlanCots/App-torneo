@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, session
 from flask_login import login_user, logout_user, login_required, current_user
 from models.user import User
 from models import db
@@ -46,12 +46,14 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user)
+            session['user_role'] = 'admin' if user.is_admin else 'participant'  # Almacena el rol en la sesión
             flash('¡Has iniciado sesión exitosamente!', 'success')
             return redirect(url_for('user.home'))
         else:
             flash('Email o contraseña incorrectos.', 'danger')
 
     return render_template('login.html', form=form)
+
 
 
 @auth_bp.route('/logout')

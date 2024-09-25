@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     email = Column(String(150), unique=True, nullable=False)
     password_hash = Column(String(128), nullable=False)
     is_admin = Column(Boolean, default=False)
+    score = Column(Integer, default=0)  # Nuevo campo para la puntuación
 
     # Relación con la tabla de juegos a través de la tabla secundaria user_games
     games = relationship("Game", secondary=user_games, back_populates="users")

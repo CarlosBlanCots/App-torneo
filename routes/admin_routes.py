@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
+from flask_login import login_required
 from models import db
 from models.user import User  # Asegúrate de importar el modelo User
 
@@ -16,3 +17,11 @@ def delete_user(user_id):
     db.session.commit()
     flash('¡Usuario eliminado!')
     return redirect(url_for('admin.view_users'))
+
+@admin_bp.route('/dashboard')
+@login_required
+def dashboard():
+    # Aquí puedes obtener datos de los participantes y juegos, por ejemplo:
+    # participants = get_all_participants()
+    # games = get_all_games()
+    return render_template('admin_dashboard.html', participants=[], games=[])

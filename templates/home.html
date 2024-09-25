@@ -7,26 +7,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <h1>Bienvenido al torneo de videojuegos</h1>
+    <div class="container">
+        <nav class="sidebar">
+            {% if current_user.is_authenticated %}
+                <h2>Opciones</h2>
+                <ul>
+                    <li><a href="{{ url_for('user.user_data') }}" class="btn btn-sidebar btn-profile">Ver Mi Perfil</a></li>
+                    {% if current_user.is_admin %}
+                        <li><a href="{{ url_for('admin.view_users') }}" class="btn btn-sidebar btn-primary">Ver Usuarios</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('auth.logout') }}" class="btn btn-sidebar btn-danger">Cerrar Sesión</a></li>
+                </ul>
+            {% else %}
+                <p>Por favor, <a href="{{ url_for('auth.login') }}" class="btn btn-home">inicia sesión</a> para acceder a más funciones.</p>
+            {% endif %}
+        </nav>
 
-    {% if current_user.is_authenticated %}
-        <p>Te damos la bienvenida, {{ current_user.username }}.</p>
-        <a href="{{ url_for('auth.logout') }}"><button type="button">Cerrar Sesión</button></a>
-        {% if current_user.is_admin %}
-            <a href="{{ url_for('admin.view_users') }}"><button type="button">Ver Usuarios</button></a>
-        {% endif %}
-    {% else %}
-        <p>Por favor, <a href="{{ url_for('auth.login') }}">inicia sesión</a> para acceder a más funciones.</p>
-    {% endif %}
+        <main>
+            <h1>Bienvenido al torneo de videojuegos</h1>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+            {% if current_user.is_authenticated %}
+                <p>Te damos la bienvenida, <strong>{{ current_user.username }}</strong>.</p>
+            {% endif %}
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </main>
+    </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, login_required, current_user
 from models import db, User
 from models.game import Game
@@ -10,7 +10,6 @@ user_bp = Blueprint('user', __name__)
 @login_required
 def home():
     return render_template('home.html')
-
 
 @user_bp.route('/user/edit/<int:user_id>', methods=['GET', 'POST'])
 @login_required
@@ -51,6 +50,40 @@ def edit_user(user_id):
         return redirect(url_for('admin.view_users'))
 
     return render_template('edit_user.html', form=form, user=user)
+
+@user_bp.route('/perfil')
+def user_data():
+    participantes = User.query.all()
+
+    return render_template('user_data.html', participantes=participantes)
+
+@user_bp.route('/dashboard')
+@login_required
+def dashboard():
+    participant_data = get_participant_data(current_user.id)
+    return render_template('participant_dashboard.html', participant_data=participant_data)
+
+
+def get_participant_data(participant_id):
+    participant = User.query.get(participant_id)
+    if participant is None:
+        # Manejar el caso donde el participante no existe
+        return None
+
+    games = participant.games  # Obtiene los juegos asociados al participante
+    return {
+        'name': participant.username,  # Nombre del usuario
+        'score': participant.score,  # Puntuación del usuario
+        'rank': calculate_rank(participant_id),  # Lógica para calcular el rango
+        'games': games  # Juegos en los que está inscrito
+    }
+
+
+def calculate_rank(participant_id):
+    # Aquí puedes implementar la lógica para calcular el puesto en el ranking
+    # Por ejemplo, puedes contar cuántos usuarios tienen más puntuación
+    total_users = User.query.filter(User.score > User.query.get(participant_id).score).count()
+    return total_users + 1  # El rango es total de usuarios con más puntuación + 1 para el actual
 
 
 @user_bp.route('/logout')
