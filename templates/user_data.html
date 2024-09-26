@@ -27,15 +27,15 @@
                     {% if current_user.games %}
                         {% for juego in current_user.games %}
                             <tr>
-                                <td>{{ juego.name }}</td>  <!-- Usar 'name' si es el campo en el modelo -->
+                                <td>{{ juego.name }}</td>
                                 <td>
-                                    {% if juego.name == "Pac-Man" %}
-                                        {{ current_user.pacman_score }}  <!-- Ajusta según tu modelo -->
-                                    {% elif juego.name == "Tetris" %}
-                                        {{ current_user.tetris_score }}  <!-- Ajusta según tu modelo -->
-                                    {% else %}
-                                        {{ "-" }}  <!-- Para otros juegos, puedes definir otro comportamiento -->
-                                    {% endif %}
+                                    {% set score = None %}
+                                    {% for user_game in current_user.game_scores %}
+                                        {% if user_game.game_id == juego.id %}
+                                            {% set score = user_game.score %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {{ score if score is not none else '-' }}
                                 </td>
                                 <td>{{ "-" }}</td>  <!-- Placeholder para la posición en el ranking -->
                             </tr>

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField, IntegerField, FieldList, FormField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
-from models import Game, db
+from models import Game
 
 class LoginForm(FlaskForm):
     email = StringField(
@@ -53,10 +53,13 @@ class RegistrationForm(FlaskForm):
     games = SelectMultipleField(
         'Selecciona los juegos en los que participarás',
         choices=[],  # Inicializamos la lista de opciones vacía
-        validators=[DataRequired(message="Debes seleccionar al menos un juego")]
+        validators=[DataRequired(message="Debes seleccionar al menos un juego")]  # Aquí se agrega el validador
     )
     submit = SubmitField('Registrar')
 
+class GameScoreForm(FlaskForm):
+    game = StringField('Juego', render_kw={'readonly': True})  # Campo solo lectura
+    score = IntegerField('Puntuación', default=0)
 
 class EditUserForm(FlaskForm):
     username = StringField(
@@ -83,16 +86,11 @@ class EditUserForm(FlaskForm):
     )
     is_admin = BooleanField('Administrador')
 
-    # Campos de puntuación específicos
-    pacman_score = IntegerField('Puntuación de Pac-Man', default=0)
-    tetris_score = IntegerField('Puntuación de Tetris', default=0)
+    # Lista de juegos y puntuaciones asociadas (usando FieldList y FormField)
+    game_scores = FieldList(FormField(GameScoreForm), min_entries=0)
 
-    games = SelectMultipleField(
-        'Selecciona los juegos en los que participará el usuario',
-        choices=[],
-        validators=[DataRequired(message="Debes seleccionar al menos un juego")]
-    )
     submit = SubmitField('Guardar Cambios')
+
 class GameSelectionForm(FlaskForm):
     games = SelectMultipleField(
         'Selecciona los juegos',

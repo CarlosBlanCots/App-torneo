@@ -1,13 +1,15 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from models import db
-from models.user import User  # Asegúrate de importar el modelo User
-from models.game import Game  # Asegúrate de importar el modelo Game
-from forms import EditUserForm  # Asegúrate de importar el formulario EditUserForm
+from models.user import User
+from models.game import Game
+from models.user_game_score import UserGameScore  # Modelo que relaciona usuarios, juegos y puntuaciones
+from forms import EditUserForm
 
 admin_bp = Blueprint('admin', __name__)
 
 @admin_bp.route('/users')
+@login_required
 def view_users():
     users = User.query.all()
     return render_template('view_users.html', users=users)
@@ -22,13 +24,15 @@ def edit_user(user_id):
 
     form = EditUserForm(obj=user)
 
-    form.games.choices = [(game.id, game.name) for game in Game.query.all()]
-
-    if request.method == 'GET':
-        # Cargar los juegos del usuario y las puntuaciones
-        form.games.data = [game.id for game in user.games]
-        form.pacman_score.data = user.pacman_score  # Asegúrate de que estos campos existan
-        form.tetris_score.data = user.tetris_score
+    # Cargar juegos disponibles
+    games = Game.query.all()
+    form.game_scores.entries.clear()  # Limpiar entradas previas
+    for game in games:
+        user_game_score = next((score for score in user.game_scores if score.game_id == game.id), None)
+        if user_game_score:
+            form.game_scores.append_entry({'game': game.name, 'score': user_game_score.score})
+        else:
+            form.game_scores.append_entry({'game': game.name, 'score': 0})  # Puntuación por defecto si no hay registro
 
     if form.validate_on_submit():
         user.username = form.username.data
@@ -37,17 +41,21 @@ def edit_user(user_id):
         if form.password.data:
             user.set_password(form.password.data)
 
-        user.is_admin = form.is_admin.data
-
         # Actualizar puntuaciones
-        user.pacman_score = form.pacman_score.data
-        user.tetris_score = form.tetris_score.data
-
-        selected_games = Game.query.filter(Game.id.in_(form.games.data)).all()
-        user.games = selected_games
+        for game_score in form.game_scores.data:
+            game_name = game_score['game']
+            score = game_score['score']
+            game = Game.query.filter_by(name=game_name).first()
+            if game:
+                # Actualizar o crear el registro de puntuación
+                user_game_score = next((score for score in user.game_scores if score.game_id == game.id), None)
+                if user_game_score:
+                    user_game_score.score = score  # Actualizar la puntuación existente
+                else:
+                    new_score = UserGameScore(user_id=user.id, game_id=game.id, score=score)
+                    db.session.add(new_score)  # Agregar nueva puntuación
 
         db.session.commit()
-
         flash('¡Información del usuario actualizada!', 'success')
         return redirect(url_for('admin.view_users'))
 
@@ -59,11 +67,17 @@ def update_score(user_id):
     user = User.query.get_or_404(user_id)
     new_score = request.form.get('score', type=int)
 
-    # Asegúrate de actualizar la puntuación correcta, ¿debería ser pacman_score o tetris_score?
     if new_score is not None:
-        user.pacman_score = new_score  # Cambiar esto si es necesario
-        db.session.commit()
-        flash('Puntuación actualizada correctamente.', 'success')
+        # Lógica para actualizar la puntuación dinámica según el juego
+        game_id = request.form.get('game_id', type=int)
+        user_game_score = UserGameScore.query.filter_by(user_id=user.id, game_id=game_id).first()
+
+        if user_game_score:
+            user_game_score.score = new_score
+            db.session.commit()
+            flash('Puntuación actualizada correctamente.', 'success')
+        else:
+            flash('Error al encontrar la puntuación.', 'danger')
     else:
         flash('Error al actualizar la puntuación.', 'danger')
 

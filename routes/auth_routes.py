@@ -7,34 +7,51 @@ from forms import RegistrationForm, LoginForm
 
 auth_bp = Blueprint('auth', __name__)
 
+
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+
+    # Cargar juegos disponibles en la lista de opciones
     form.games.choices = [(game.id, game.name) for game in Game.query.all()]
 
-    if form.validate_on_submit():
-        username = form.username.data
-        email = form.email.data
-        password = form.password.data
-        selected_game_ids = form.games.data
+    # Si el primer usuario se registra, no necesita seleccionar un juego
+    if User.query.count() == 0:
+        if form.validate_on_submit():
+            user = User(
+                username=form.username.data,
+                email=form.email.data
+            )
+            user.set_password(form.password.data)
+            user.is_admin = True  # Hacerlo administrador
+            db.session.add(user)
+            db.session.commit()
+            flash('¡Registro exitoso! Eres el administrador del torneo.', 'success')
+            return redirect(url_for('auth.login'))
+    else:
+        # Para usuarios adicionales, la selección de juegos es obligatoria
+        if form.validate_on_submit():
+            if not form.games.data:
+                form.games.errors.append("Debes seleccionar al menos un juego para registrarte.")
+            else:
+                user = User(
+                    username=form.username.data,
+                    email=form.email.data
+                )
+                user.set_password(form.password.data)
+                db.session.add(user)
+                db.session.commit()
 
-        first_user = User.query.first()
-        is_admin = first_user is None
+                # Asignar los juegos seleccionados
+                selected_games = Game.query.filter(Game.id.in_(form.games.data)).all()
+                user.games = selected_games  # Esto actualizará la relación con los juegos
 
-        new_user = User(username=username, email=email)
-        new_user.set_password(password)
-        new_user.is_admin = is_admin
-
-        selected_games = Game.query.filter(Game.id.in_(selected_game_ids)).all()
-        new_user.games = selected_games
-
-        db.session.add(new_user)
-        db.session.commit()
-
-        flash('¡Te has registrado exitosamente!', 'success')
-        return redirect(url_for('auth.login'))
+                db.session.commit()
+                flash('¡Registro exitoso!', 'success')
+                return redirect(url_for('auth.login'))
 
     return render_template('register.html', form=form)
+
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -53,8 +70,6 @@ def login():
             flash('Email o contraseña incorrectos.', 'danger')
 
     return render_template('login.html', form=form)
-
-
 
 @auth_bp.route('/logout')
 @login_required

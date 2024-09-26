@@ -1,11 +1,12 @@
 from . import db
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
 class Game(db.Model):
     __tablename__ = 'games'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
-    users = relationship('User', secondary='user_games', back_populates='games')
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False, unique=True)
+    rules = db.Column(db.Text, nullable=True)
 
-    def __repr__(self):
-        return f'<Game {self.name}>'
+    # Relación con UserGameScore para gestionar usuarios y puntuaciones
+    user_scores = relationship('UserGameScore', back_populates='game')

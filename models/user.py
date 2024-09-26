@@ -1,9 +1,8 @@
-from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
+from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
-from . import db
-from .user_games import user_games
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -12,27 +11,12 @@ class User(db.Model, UserMixin):
     email = Column(String(150), unique=True, nullable=False)
     password_hash = Column(String(128), nullable=False)
     is_admin = Column(Boolean, default=False)
-    pacman_score = Column(Integer, default=0)  # Puntuación específica para Pac-Man
-    tetris_score = Column(Integer, default=0)  # Puntuación específica para Tetris
 
-    # Relación con la tabla de juegos a través de la tabla secundaria user_games
-    games = relationship("Game", secondary=user_games, back_populates="users")
-
+    # Relación con UserGameScore para gestionar los juegos y puntuaciones
+    game_scores = relationship('UserGameScore', back_populates='user')
 
     def set_password(self, password):
-        """
-        Configura el hash de la contraseña para el usuario.
-        """
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        """
-        Verifica la contraseña proporcionada contra el hash almacenado.
-        """
         return check_password_hash(self.password_hash, password)
-
-    def __repr__(self):
-        """
-        Representa el usuario como una cadena.
-        """
-        return f'<User {self.username}>'

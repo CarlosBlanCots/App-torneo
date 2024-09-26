@@ -4,7 +4,7 @@ from config import Config
 from models import db
 from models.user import User
 from models.game import Game
-from models.user_games import user_games
+from models.user_game_score import user_games
 from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
 from routes.admin_routes import admin_bp
@@ -26,15 +26,11 @@ login_manager.init_app(app)
 login_manager.login_view = 'auth.login'  # Define el nombre de la vista de login
 
 # Carga el usuario para la sesión
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 # Registra los blueprints
-
-
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(admin_bp, url_prefix='/admin')
