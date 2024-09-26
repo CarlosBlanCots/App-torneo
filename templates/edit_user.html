@@ -26,7 +26,15 @@
             </div>
             {% endif %}
             <div class="form-group">
-                <label for="games">Selecciona los juegos en los que participarás:</label>
+                <label for="pacman_score">Puntuación de Pac-Man:</label>
+                {{ form.pacman_score(class="form-control", min=0) }}
+            </div>
+            <div class="form-group">
+                <label for="tetris_score">Puntuación de Tetris:</label>
+                {{ form.tetris_score(class="form-control", min=0) }}
+            </div>
+            <div class="form-group">
+                <label for="games">Selecciona los juegos en los que participará el usuario:</label>
                 <div class="form-check">
                     {% for game_id, game_name in form.games.choices %}
                         <div class="form-check d-flex justify-content-between align-items-center">

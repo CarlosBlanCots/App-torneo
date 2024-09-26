@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField, IntegerField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 from models import Game, db
 
@@ -57,16 +57,13 @@ class RegistrationForm(FlaskForm):
     )
     submit = SubmitField('Registrar')
 
+
 class EditUserForm(FlaskForm):
     username = StringField(
         'Nombre de Usuario',
         validators=[
             DataRequired(message="Este campo es obligatorio"),
-            Length(
-                min=2,
-                max=20,
-                message="El nombre debe tener entre 2 y 20 caracteres"
-            )
+            Length(min=2, max=20, message="El nombre debe tener entre 2 y 20 caracteres")
         ]
     )
     email = StringField(
@@ -86,13 +83,16 @@ class EditUserForm(FlaskForm):
     )
     is_admin = BooleanField('Administrador')
 
+    # Campos de puntuación específicos
+    pacman_score = IntegerField('Puntuación de Pac-Man', default=0)
+    tetris_score = IntegerField('Puntuación de Tetris', default=0)
+
     games = SelectMultipleField(
         'Selecciona los juegos en los que participará el usuario',
         choices=[],
         validators=[DataRequired(message="Debes seleccionar al menos un juego")]
     )
     submit = SubmitField('Guardar Cambios')
-
 class GameSelectionForm(FlaskForm):
     games = SelectMultipleField(
         'Selecciona los juegos',

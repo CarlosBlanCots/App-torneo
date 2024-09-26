@@ -13,21 +13,49 @@
         {% if current_user.is_authenticated %}
             <p><strong>Nombre:</strong> {{ current_user.username }}</p>
             <p><strong>Email:</strong> {{ current_user.email }}</p>
-            <p><strong>Puntuación:</strong> {{ current_user.puntuacion }}</p>
+
+            <h2>Juegos Registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Juego</th>
+                        <th>Puntuación</th>
+                        <th>Posición en el Ranking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if current_user.games %}
+                        {% for juego in current_user.games %}
+                            <tr>
+                                <td>{{ juego.name }}</td>  <!-- Usar 'name' si es el campo en el modelo -->
+                                <td>
+                                    {% if juego.name == "Pac-Man" %}
+                                        {{ current_user.pacman_score }}  <!-- Ajusta según tu modelo -->
+                                    {% elif juego.name == "Tetris" %}
+                                        {{ current_user.tetris_score }}  <!-- Ajusta según tu modelo -->
+                                    {% else %}
+                                        {{ "-" }}  <!-- Para otros juegos, puedes definir otro comportamiento -->
+                                    {% endif %}
+                                </td>
+                                <td>{{ "-" }}</td>  <!-- Placeholder para la posición en el ranking -->
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">No tienes juegos registrados.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
         {% else %}
             <p>Por favor, <a href="{{ url_for('auth.login') }}">inicia sesión</a> para ver tus datos personales.</p>
         {% endif %}
 
-        <h2>Participantes</h2>
-        <ul>
-            {% for participante in participantes %}
-                <li>
-                    <strong>Nombre:</strong> {{ participante.username }} -
-                    <strong>Email:</strong> {{ participante.email }} -
-                    <strong>Puntuación:</strong> {{ participante.puntuacion }}
-                </li>
-            {% endfor %}
-        </ul>
+        <br>
+        <a href="{{ url_for('user.home') }}">
+            <button type="button" class="btn-secondary">Inicio</button>
+        </a>
     </div>
 </body>
 </html>

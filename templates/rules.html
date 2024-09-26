@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reglas del Torneo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Reglas del Torneo</h1>
+        <ul>
+            {% for regla in reglas %}
+                <li>{{ regla }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('user.home') }}">
+            <button type="button" class="btn-secondary">Inicio</button>
+        </a>
+    </div>
+</body>
+</html>
