@@ -3,8 +3,6 @@ from flask_login import LoginManager
 from config import Config
 from models import db
 from models.user import User
-from models.game import Game
-from models.user_game_score import user_games
 from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
 from routes.admin_routes import admin_bp

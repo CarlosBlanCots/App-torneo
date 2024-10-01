@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reglas del Torneo</title>
+    <title>Normas del Torneo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Reglas del Torneo</h1>
+        <h1>Normas del Torneo</h1>
         <ul>
             {% for regla in reglas %}
                 <li>{{ regla }}</li>
             {% endfor %}
         </ul>
+
+        {% if current_user.is_admin %}
+            <a href="{{ url_for('admin.modify_rules') }}">
+                <button type="button" class="btn-primary">Modificar Normas</button>
+            </a>
+        {% endif %}
+
         <a href="{{ url_for('user.home') }}">
             <button type="button" class="btn-secondary">Inicio</button>
         </a>

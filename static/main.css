@@ -257,3 +257,44 @@ main h1 {
     margin: 0; /* Eliminar márgenes */
     padding: 0; /* Eliminar padding */
 }
+/* Estilo para el área de texto de reglas del juego */
+.rules-textarea {
+    width: 100%;
+    height: 150px; /* Aumentar la altura */
+    padding: 10px;
+    border: 1px solid #ced4da; /* Borde más suave */
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    resize: none; /* Evitar redimensionar */
+}
+
+/* Espaciado entre campos de formulario */
+.form-group {
+    margin-bottom: 20px; /* Espacio entre campos */
+}
+
+/* Estilo para las etiquetas del formulario en el contexto de la tabla */
+.table td label {
+    display: block; /* Cada etiqueta en su propia línea */
+    margin-bottom: 8px; /* Más espacio entre la etiqueta y el campo */
+    font-weight: 600;
+}
+/* Estilo para el campo de reglas del juego */
+.textarea-rules {
+    width: 100%; /* Asegura que el textarea ocupe todo el ancho */
+    height: 150px; /* Ajusta la altura según lo necesites */
+    margin-top: 10px; /* Añade margen superior para separarlo de la etiqueta */
+}
+
+/* Estilo para etiquetas de campos de texto */
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* Espacio entre la etiqueta y el campo */
+    font-weight: 600;
+}
+
+/* Estilo para la tabla en edit_games.html */
+.table th, .table td {
+    vertical-align: top; /* Alineación vertical superior */
+}

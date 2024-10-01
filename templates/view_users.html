@@ -23,8 +23,6 @@
             <tr>
                 <th>Nombre de Usuario</th>
                 <th>Email</th>
-                <th>Puntuación de Pac-Man</th> <!-- Columna para puntuación de Pac-Man -->
-                <th>Puntuación de Tetris</th> <!-- Columna para puntuación de Tetris -->
                 <th>Admin</th>
                 <th>Acciones</th>
             </tr>
@@ -34,8 +32,6 @@
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.pacman_score }}</td> <!-- Mostrar puntuación de Pac-Man -->
-                    <td>{{ user.tetris_score }}</td> <!-- Mostrar puntuación de Tetris -->
                     <td>{{ 'Sí' if user.is_admin else 'No' }}</td>
                     <td>
                         <a href="{{ url_for('admin.edit_user', user_id=user.id) }}">

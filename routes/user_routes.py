@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, session
-from flask_login import login_user, logout_user, login_required, current_user
+from flask import Blueprint, render_template, redirect, url_for, flash, session
+from flask_login import login_required, current_user
 from models import db, User
-from models.game import Game
 from forms import EditUserForm
 
 user_bp = Blueprint('user', __name__)
@@ -12,25 +11,19 @@ def home():
     return render_template('home.html')
 
 @user_bp.route('/perfil')
+@login_required
 def user_data():
     participantes = User.query.all()
-
     return render_template('user_data.html', participantes=participantes)
 
-@user_bp.route('/reglas')
+@user_bp.route('/reglas', methods=['GET'])
 @login_required
 def rules():
-    reglas_torneo = [
-        "Regla 1: Cada participante debe registrarse antes de la fecha límite.",
-        "Regla 2: Se jugarán partidos a eliminación directa.",
-        "Regla 3: Las puntuaciones se actualizarán después de cada partida.",
-        "Regla 4: Los participantes deben ser respetuosos con los demás.",
-    ]
+    reglas_torneo = session.get('reglas_torneo', [])  # Obtener reglas de la sesión
     return render_template('rules.html', reglas=reglas_torneo)
 
-@user_bp.route('/logout')
+@user_bp.route('/participants', methods=['GET'])
 @login_required
-def logout():
-    logout_user()
-    flash('Has cerrado sesión.', 'info')
-    return redirect(url_for('auth.login'))
+def participants():
+    users = User.query.all()  # Obtiene todos los usuarios
+    return render_template('participants.html', users=users)

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Juegos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Juegos</h1>
+
+        {% if games %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre del Juego</th>
+                        <th>Reglas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in games %}
+                        <tr>
+                            <td>{{ game.name }}</td>
+                            <td>{{ game.rules }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay juegos registrados.</p>
+        {% endif %}
+
+        <div class="button-container">
+            <a href="{{ url_for('admin.add_game') }}" class="btn btn-primary">Añadir Juego</a>
+            <a href="{{ url_for('admin.edit_games') }}" class="btn btn-primary">Editar Juegos</a>
+            <a href="{{ url_for('user.home') }}">
+                <button type="button" class="btn-secondary">Inicio</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

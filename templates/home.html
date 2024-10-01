@@ -12,10 +12,12 @@
             {% if current_user.is_authenticated %}
                 <h2>Opciones</h2>
                 <ul>
-                    <li><a href="{{ url_for('user.rules') }}" class="btn btn-sidebar btn-profile">Reglas del torneo</a></li>
+                    <li><a href="{{ url_for('user.rules') }}" class="btn btn-sidebar btn-profile">Normas del torneo</a></li>
                     <li><a href="{{ url_for('user.user_data') }}" class="btn btn-sidebar btn-profile">Ver Mi Perfil</a></li>
+                    <li><a href="{{ url_for('user.participants') }}" class="btn btn-sidebar btn-profile">Ver Participantes</a></li>
                     {% if current_user.is_admin %}
-                    <li><a href="{{ url_for('admin.view_users') }}" class="btn btn-sidebar btn-primary">Ver Usuarios</a></li>
+                        <li><a href="{{ url_for('admin.view_users') }}" class="btn btn-sidebar btn-primary">Ver Usuarios</a></li>
+                        <li><a href="{{ url_for('admin.view_games') }}" class="btn btn-sidebar btn-primary">Ver Lista de Juegos</a></li> <!-- Botón añadido -->
                     {% endif %}
                     <li><a href="{{ url_for('auth.logout') }}" class="btn btn-sidebar btn-danger">Cerrar Sesión</a></li>
                 </ul>

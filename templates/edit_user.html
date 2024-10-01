@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width" />
     <title>Editar Usuario</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
@@ -11,14 +11,17 @@
         <h1>Editar Usuario</h1>
         <form method="POST">
             {{ form.hidden_tag() }}
+
             <div class="form-group">
                 <label for="username">Nombre de usuario:</label>
                 {{ form.username(class="form-control", size=32) }}
             </div>
+
             <div class="form-group">
                 <label for="email">Email:</label>
                 {{ form.email(class="form-control", size=32) }}
             </div>
+
             {% if current_user.is_admin %}
             <div class="form-group">
                 <label for="is_admin">Administrador:</label>
@@ -27,17 +30,13 @@
             {% endif %}
 
             <div class="form-group">
-                <label for="games">Selecciona los juegos en los que participará el usuario:</label>
-                <div class="form-check">
-                    {% for game_score in form.game_scores %}
-                        <div class="form-check d-flex justify-content-between align-items-center">
-                            <label class="form-check-label" for="game{{ loop.index }}">{{ game_score.game }}</label>
-                            <input class="form-check-input" type="checkbox" id="game{{ loop.index }}" name="games" value="{{ game_score.game }}"
-                            {% if game_score.score > 0 %}checked{% endif %}>
-                        </div>
-                        <div class="form-group">
-                            <label for="score{{ loop.index }}">Puntuación:</label>
-                            <input type="number" id="score{{ loop.index }}" name="scores[{{ game_score.game }}]" class="form-control" min="0" value="{{ game_score.score }}">
+                <label for="games">Selecciona los juegos:</label>
+                <div>
+                    {% for game in games %}
+                        <div>
+                            <input type="checkbox" name="games" value="{{ game.id }}"
+                                   {% if game.id in user_game_ids %} checked {% endif %}>
+                            {{ game.name }}
                         </div>
                     {% endfor %}
                 </div>
