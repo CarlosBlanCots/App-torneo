@@ -71,9 +71,12 @@ def edit_user(user_id):
     user = User.query.get_or_404(user_id)
     form = EditUserForm(obj=user)
 
-    # Cargar los juegos disponibles y establecer las opciones en el formulario
+    # Cargar los juegos disponibles y sus puntuaciones
     games = Game.query.all()
-    form.games.choices = [(game.id, game.name) for game in games]  # Llenar choices
+    user_game_scores = {score.game_id: score.score for score in user.game_scores}
+
+    # Asignar opciones de juegos al formulario
+    form.games.choices = [(game.id, game.name) for game in games]
 
     if form.validate_on_submit():
         user.username = form.username.data
@@ -81,8 +84,8 @@ def edit_user(user_id):
         user.is_admin = form.is_admin.data
 
         # Actualiza la relación de juegos
-        selected_game_ids = [int(game_id) for game_id in request.form.getlist('games')]  # Convertir a enteros
-        current_game_ids = [score.game_id for score in user.game_scores]  # Obtiene los IDs de los juegos actuales
+        selected_game_ids = [int(game_id) for game_id in form.games.data if game_id]  # Convertir a enteros
+        current_game_ids = list(user_game_scores.keys())  # Obtiene los IDs de los juegos actuales
 
         # Eliminar juegos no seleccionados
         for game_id in current_game_ids:
@@ -90,22 +93,26 @@ def edit_user(user_id):
                 score = UserGameScore.query.filter_by(user_id=user.id, game_id=game_id).first()
                 db.session.delete(score)
 
-        # Agregar nuevos juegos
+        # Agregar nuevos juegos y actualizar puntuaciones
         for game_id in selected_game_ids:
+            score_value = request.form.get(f'scores_{game_id}', 0)  # Obtener la puntuación del juego
             if game_id not in current_game_ids:
-                new_score = UserGameScore(user_id=user.id, game_id=game_id)
+                new_score = UserGameScore(user_id=user.id, game_id=game_id, score=score_value)
                 db.session.add(new_score)
+            else:
+                existing_score = UserGameScore.query.filter_by(user_id=user.id, game_id=game_id).first()
+                if existing_score:
+                    existing_score.score = score_value
 
         db.session.commit()
         flash('Usuario actualizado con éxito.', 'success')
         return redirect(url_for('admin.view_users'))
-    else:
-        print(form.errors)
 
-    user_game_ids = [score.game_id for score in user.game_scores]
-    return render_template('edit_user.html', form=form, user=user, games=games, user_game_ids=user_game_ids)
+    # Cargar los IDs de los juegos asociados al usuario
+    user_game_ids = list(user_game_scores.keys())
+    form.games.data = user_game_ids  # Asegúrate de que el campo 'games' tenga los valores actuales
 
-
+    return render_template('edit_user.html', form=form, user=user, games=games, user_game_scores=user_game_scores)
 
 @admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
 @login_required

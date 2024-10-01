@@ -24,20 +24,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if current_user.games %}
-                        {% for juego in current_user.games %}
+                    {% if user_game_scores %}
+                        {% for user_game in user_game_scores %}
                             <tr>
-                                <td>{{ juego.name }}</td>
-                                <td>
-                                    {% set score = None %}
-                                    {% for user_game in current_user.game_scores %}
-                                        {% if user_game.game_id == juego.id %}
-                                            {% set score = user_game.score %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {{ score if score is not none else '-' }}
-                                </td>
-                                <td>{{ "-" }}</td>  <!-- Placeholder para la posición en el ranking -->
+                                <td>{{ user_game.game.name }}</td>
+                                <td>{{ user_game.score }}</td>
+                                <td>{{ rankings[user_game.game_id] }}</td> <!-- Uso del ranking calculado -->
                             </tr>
                         {% endfor %}
                     {% else %}

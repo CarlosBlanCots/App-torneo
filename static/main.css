@@ -1,11 +1,11 @@
 /* Estilos para mensajes de éxito y error */
 .success {
-    color: #28a745; /* Color verde más accesible */
+    color: #28a745;
     font-weight: bold;
 }
 
 .danger {
-    color: #dc3545; /* Color rojo más accesible */
+    color: #dc3545;
     font-weight: bold;
 }
 
@@ -21,20 +21,20 @@ li {
 
 /* Estilos generales para el cuerpo */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna y legible */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Color de fondo más claro */
-    line-height: 1.6; /* Mejora la legibilidad */
+    background-color: #f8f9fa;
+    line-height: 1.6;
     color: #333;
 }
 
-/* Estilos para los contenedores de formulario */
+/* Estilos para contenedores */
 .container {
-    max-width: 600px; /* Incremento de ancho para formularios más amplios */
-    margin: 20px auto; /* Añade un margen superior */
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
-    border: 1px solid #dee2e6; /* Color más claro para el borde */
+    border: 1px solid #dee2e6;
     border-radius: 8px;
     background-color: #ffffff;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -42,13 +42,13 @@ body {
 
 /* Agrupación de campos de formulario */
 .form-group {
-    margin-bottom: 15px; /* Ajuste para una separación más uniforme */
+    margin-bottom: 20px; /* Unifica el margen entre campos */
 }
 
-/* Estilo para las etiquetas del formulario */
+/* Estilo para etiquetas */
 .form-group label {
     display: block;
-    margin-bottom: 8px; /* Más espacio entre la etiqueta y el campo */
+    margin-bottom: 8px;
     font-weight: 600;
 }
 
@@ -56,58 +56,58 @@ body {
 .form-control {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ced4da; /* Borde más suave */
+    border: 1px solid #ced4da;
     border-radius: 4px;
     box-sizing: border-box;
     transition: border-color 0.2s;
 }
 
 .form-control:focus {
-    border-color: #80bdff; /* Color de borde al enfocar */
+    border-color: #80bdff;
     outline: none;
 }
 
-/* Estilo para los botones en la barra lateral */
+/* Estilos para la barra lateral */
+.sidebar {
+    width: 200px;
+    position: fixed;
+    height: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    left: 0;
+    top: 0;
+}
+
+/* Estilos para los botones de la barra lateral */
 .btn-sidebar {
-    display: block; /* Cada botón ocupa toda la línea */
-    margin-bottom: 10px; /* Espacio entre los botones */
-    background-color: #007bff; /* Fondo azul para los botones */
-    color: white; /* Color del texto */
-    padding: 10px 15px; /* Espaciado interno uniforme */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    text-align: center; /* Centra el texto */
-    font-size: 16px; /* Tamaño de fuente */
-    transition: background-color 0.2s ease; /* Transición suave al pasar el ratón */
-    width: 50%; /* Asegura que el botón ocupe todo el ancho disponible */
+    display: block;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    width: 100%; /* Ajusta para que los botones ocupen todo el ancho */
 }
 
 .btn-sidebar:hover {
-    background-color: #0056b3; /* Color de fondo más oscuro al pasar el ratón */
+    background-color: #0056b3;
 }
 
-/* Estilo específico para el botón "Ver Mi Perfil" */
+/* Botón "Ver Mi Perfil" */
 .btn-profile {
-    background-color: #28a745; /* Fondo verde para el botón "Ver Perfil" */
+    background-color: #28a745;
 }
 
 .btn-profile:hover {
-    background-color: #218838; /* Fondo verde más oscuro al pasar el ratón */
+    background-color: #218838;
 }
 
-/* Estilo para el botón de envío */
-.btn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    transition: background-color 0.2s ease;
-}
-
+/* Botones primarios */
 .btn-primary {
     background-color: #007bff;
 }
@@ -116,10 +116,10 @@ body {
     background-color: #0056b3;
 }
 
-/* Estilos específicos para las tablas en /admin/users */
+/* Estilos para tablas */
 .table-container {
     width: 90%;
-    margin: 30px auto; /* Añade un margen superior */
+    margin: 30px auto;
     background: white;
     padding: 20px;
     border-radius: 5px;
@@ -129,17 +129,14 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px; /* Espacio inferior */
-}
-
-table, th, td {
-    border: 1px solid #dee2e6;
+    margin-bottom: 20px;
 }
 
 th, td {
-    padding: 12px; /* Mayor espacio en celdas */
+    padding: 12px;
     text-align: left;
-    vertical-align: middle; /* Centrado vertical */
+    vertical-align: middle;
+    border: 1px solid #dee2e6;
 }
 
 th {
@@ -147,28 +144,12 @@ th {
     font-weight: 600;
 }
 
-/* Estilo para enlaces de edición */
-a.edit-link {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a.edit-link:hover {
-    text-decoration: underline;
-}
-
-/* Estilo para el botón de home */
+/* Botón de home */
 .btn-home {
     background-color: #007bff;
     color: white;
-    border: none;
     padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+    border: none;
     border-radius: 4px;
     transition: background-color 0.2s ease;
 }
@@ -177,16 +158,24 @@ a.edit-link:hover {
     background-color: #0056b3;
 }
 
-/* Estilos para checkbox */
-.form-check {
-    margin-bottom: 10px;
+/* Otros botones */
+.btn-danger {
+    background-color: #dc3545;
 }
 
-.form-check-label {
-    margin-right: 10px;
+.btn-danger:hover {
+    background-color: #c82333;
 }
 
-/* Estilos adicionales para hover y focus en elementos interactivos */
+.btn-info {
+    background-color: #28a745;
+}
+
+.btn-info:hover {
+    background-color: #218838;
+}
+
+/* Hover y focus de campos */
 .form-control:hover {
     border-color: #adb5bd;
 }
@@ -196,105 +185,29 @@ a.edit-link:hover {
     box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
-.btn-danger {
-    background-color: #dc3545; /* Color rojo para el fondo */
-    color: white; /* Color blanco para el texto */
-}
-
-.btn-danger:hover {
-    background-color: #c82333; /* Color de fondo más oscuro al pasar el mouse */
-}
-
-.btn-info {
-    background-color: #28a745; /* Color verde */
-    color: white; /* Color del texto */
-    padding: 10px 15px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    display: block; /* Cada botón ocupa toda la línea */
-    text-align: center; /* Centra el texto */
-}
-
-.btn-info:hover {
-    background-color: #218838; /* Color verde más oscuro al pasar el ratón */
-}
-
-/* Estilos para la barra lateral */
-.sidebar {
-    width: 200px; /* Ancho de la barra lateral */
-    position: fixed; /* Fija la barra lateral */
-    height: 100%; /* Altura completa */
-    background-color: #f8f9fa; /* Color de fondo */
-    padding: 20px; /* Espaciado interno */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para efecto */
-    left: 0; /* Asegura que la barra lateral esté al borde izquierdo */
-    top: 0; /* Asegura que la barra lateral esté en la parte superior */
-}
-
 /* Estilo para el contenido principal */
 main {
-    margin-left: 220px; /* Margen izquierdo para evitar superposición con la barra lateral */
-    padding: 20px; /* Espaciado interno */
-    width: calc(100% - 220px); /* Ancho total menos el ancho de la barra lateral */
-    box-sizing: border-box; /* Asegura que el padding no afecte al ancho total */
+    margin-left: 220px;
+    padding: 20px;
+    width: calc(100% - 220px);
+    box-sizing: border-box;
 }
 
-/* Opcional: Estilo para centrar el texto dentro de main */
 main h1 {
-    text-align: center; /* Centrar el título */
-
-/* Estilos para las opciones en la barra lateral */
-.sidebar ul {
-    list-style-type: none; /* Elimina el estilo de lista */
-    padding: 0; /* Elimina el padding */
+    text-align: center; /* Corregido */
 }
 
-.sidebar li {
-    margin-bottom: 15px; /* Espaciado entre opciones */
-}
-
-/* Asegurar que los botones no se interpongan con el contenido principal */
-.container {
-    margin: 0; /* Eliminar márgenes */
-    padding: 0; /* Eliminar padding */
-}
-/* Estilo para el área de texto de reglas del juego */
+/* Estilo para el área de texto de reglas */
 .rules-textarea {
     width: 100%;
-    height: 150px; /* Aumentar la altura */
+    height: 150px;
     padding: 10px;
-    border: 1px solid #ced4da; /* Borde más suave */
+    border: 1px solid #ced4da;
     border-radius: 4px;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
-    resize: none; /* Evitar redimensionar */
+    resize: none;
 }
 
-/* Espaciado entre campos de formulario */
-.form-group {
-    margin-bottom: 20px; /* Espacio entre campos */
-}
-
-/* Estilo para las etiquetas del formulario en el contexto de la tabla */
-.table td label {
-    display: block; /* Cada etiqueta en su propia línea */
-    margin-bottom: 8px; /* Más espacio entre la etiqueta y el campo */
-    font-weight: 600;
-}
-/* Estilo para el campo de reglas del juego */
-.textarea-rules {
-    width: 100%; /* Asegura que el textarea ocupe todo el ancho */
-    height: 150px; /* Ajusta la altura según lo necesites */
-    margin-top: 10px; /* Añade margen superior para separarlo de la etiqueta */
-}
-
-/* Estilo para etiquetas de campos de texto */
-.form-group label {
-    display: block;
-    margin-bottom: 8px; /* Espacio entre la etiqueta y el campo */
-    font-weight: 600;
-}
-
-/* Estilo para la tabla en edit_games.html */
+/* Estilos para la tabla */
 .table th, .table td {
-    vertical-align: top; /* Alineación vertical superior */
+    vertical-align: top;
 }

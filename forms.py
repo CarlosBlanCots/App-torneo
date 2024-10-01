@@ -85,6 +85,8 @@ class RegistrationForm(FlaskForm):
     )
     submit = SubmitField('Registrar')
 
+from wtforms import FieldList, IntegerField
+
 class EditUserForm(FlaskForm):
     username = StringField('Nombre de usuario', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
@@ -94,7 +96,9 @@ class EditUserForm(FlaskForm):
         choices=[],
         validators=[Optional()]
     )
+    scores = FieldList(IntegerField('Puntuación'), min_entries=0)  # Agrega un campo de lista para las puntuaciones
     submit = SubmitField('Guardar Cambios')
+
 
 
 

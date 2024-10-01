@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Librería de jQuery para facilitar el manejo de pestañas -->
 </head>
 <body>
     <div class="container">
@@ -17,7 +18,7 @@
                     <li><a href="{{ url_for('user.participants') }}" class="btn btn-sidebar btn-profile">Ver Participantes</a></li>
                     {% if current_user.is_admin %}
                         <li><a href="{{ url_for('admin.view_users') }}" class="btn btn-sidebar btn-primary">Ver Usuarios</a></li>
-                        <li><a href="{{ url_for('admin.view_games') }}" class="btn btn-sidebar btn-primary">Ver Lista de Juegos</a></li> <!-- Botón añadido -->
+                        <li><a href="{{ url_for('admin.view_games') }}" class="btn btn-sidebar btn-primary">Ver Lista de Juegos</a></li>
                     {% endif %}
                     <li><a href="{{ url_for('auth.logout') }}" class="btn btn-sidebar btn-danger">Cerrar Sesión</a></li>
                 </ul>
@@ -42,7 +43,64 @@
                     </ul>
                 {% endif %}
             {% endwith %}
+
+            <h2>Ranking de Juegos</h2>
+            <div class="tabs">
+                <ul class="tab-links">
+                    {% for ranking in rankings %}
+                        <li><a href="#tab-{{ loop.index }}">{{ ranking.game }}</a></li>
+                    {% endfor %}
+                </ul>
+
+                <div class="tab-content">
+                    {% for ranking in rankings %}
+                    <div id="tab-{{ loop.index }}" class="tab">
+                        <h3>{{ ranking.game }}</h3>
+                        <table class="ranking-table">
+                            <thead>
+                                <tr>
+                                    <th>Posición</th>
+                                    <th>Nombre del Participante</th>
+                                    <th>Puntuación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rank in ranking.ranking %}
+                                <tr>
+                                    <td>{{ rank.position }}</td>
+                                    <td>{{ rank.username }}</td>
+                                    <td>{{ rank.score }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </main>
     </div>
+
+    <script>
+        // Manejo de pestañas
+        $(document).ready(function() {
+            $('.tab-content div').hide(); // Oculta todas las pestañas
+            $('.tab-content div:first').show(); // Muestra la primera pestaña
+            $('.tab-links a:first').addClass('active'); // Activa la primera pestaña
+
+            $('.tab-links a').on('click', function(e) {
+                e.preventDefault();
+                var currentAttrValue = $(this).attr('href');
+
+                // Cambia la pestaña activa
+                $('.tab-links a').removeClass('active');
+                $(this).addClass('active');
+
+                // Muestra la pestaña seleccionada
+                $('.tab-content div').hide();
+                $(currentAttrValue).show();
+            });
+        });
+    </script>
 </body>
 </html>

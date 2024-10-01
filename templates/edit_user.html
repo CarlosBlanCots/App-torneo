@@ -37,6 +37,9 @@
                             <input type="checkbox" name="games" value="{{ game.id }}"
                                    {% if game.id in user_game_ids %} checked {% endif %}>
                             {{ game.name }}
+                            <input type="number" name="scores_{{ game.id }}" min="0"
+                                   placeholder="Puntuación" value="{{ user_game_scores.get(game.id, 0) }}"
+                                   class="form-control" style="width: 100px;">
                         </div>
                     {% endfor %}
                 </div>
