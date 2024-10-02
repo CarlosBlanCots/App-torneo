@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativa de Jugadores</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+        <h1>Comparativa de Puntuaciones entre Jugadores</h1>
+
+        <form method="POST" class="comparison-form">
+            <label for="player1_id">Jugador 1:</label>
+            <select name="player1_id" id="player1_id" required>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="player2_id">Jugador 2:</label>
+            <select name="player2_id" id="player2_id" required>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="game">Seleccionar Juego:</label>
+            <select name="game_id" id="game" required>
+                {% for game in games %}
+                    <option value="{{ game.id }}">{{ game.name }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-action">Comparar</button>
+        </form>
+
+        {% if date_labels %}
+        <canvas id="comparisonChart" width="400" height="200"></canvas>
+
+        <script>
+            const dateLabels = {{ date_labels|tojson }};
+            const maxScoresPlayer1 = {{ max_scores_player1|tojson }};
+            const maxScoresPlayer2 = {{ max_scores_player2|tojson }};
+
+            const data = {
+                labels: dateLabels,
+                datasets: [
+                    {
+                        label: 'Jugador 1',
+                        data: maxScoresPlayer1,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)', // Color para el jugador 1
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Jugador 2',
+                        data: maxScoresPlayer2,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)', // Color para el jugador 2
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'bar', // Cambiar a gráfico de barras
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            const comparisonChart = new Chart(
+                document.getElementById('comparisonChart'),
+                config
+            );
+        </script>
+        {% endif %}
+        <a href="{{ url_for('user.home') }}">
+            <button type="button" class="btn btn-action">Inicio</button>
+        </a>
+</body>
+</html>

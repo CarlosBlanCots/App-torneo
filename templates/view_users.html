@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Lista de Usuarios</h1>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -18,7 +19,7 @@
         {% endif %}
     {% endwith %}
 
-    <table>
+    <table class="ranking-table">
         <thead>
             <tr>
                 <th>Nombre de Usuario</th>
@@ -35,19 +36,23 @@
                     <td>{{ 'Sí' if user.is_admin else 'No' }}</td>
                     <td>
                         <a href="{{ url_for('admin.edit_user', user_id=user.id) }}">
-                            <button type="button" class="btn-primary">Editar</button>
+                            <button type="button" class="btn btn-primary">Editar</button>
                         </a>
                         <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
-                            <button type="submit" class="btn-danger">Eliminar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
                     </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">No hay usuarios registrados.</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <a href="{{ url_for('user.home') }}">
-        <button type="button" class="btn-secondary">Inicio</button>
+        <button type="button" class="btn btn-action">Inicio</button>
     </a>
 </body>
 </html>

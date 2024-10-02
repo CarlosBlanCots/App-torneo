@@ -1,213 +1,192 @@
-/* Estilos para mensajes de éxito y error */
-.success {
-    color: #28a745;
-    font-weight: bold;
-}
-
-.danger {
-    color: #dc3545;
-    font-weight: bold;
-}
-
-/* Estilo para listas de mensajes */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin: 5px 0;
-}
-
-/* Estilos generales para el cuerpo */
+/* Estilo para el fondo de todas las páginas */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    line-height: 1.6;
-    color: #333;
+    background-image: url('../static/neon.jpg'); /* Asegúrate de que la ruta sea correcta */
+    background-size: cover; /* Asegura que la imagen cubra toda el área del fondo */
+    background-position: center; /* Centra la imagen de fondo */
+    color: orange; /* Cambia el color del texto de toda la página a naranja */
+    font-family: Arial, sans-serif; /* Fuente general para todo el cuerpo */
 }
 
-/* Estilos para contenedores */
+/* Estilo para el contenedor principal de todas las páginas */
 .container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex; /* Usa flexbox para organizar el contenido */
+    flex-direction: row; /* Organiza en fila (horizontalmente) */
+    align-items: flex-start; /* Alinea al inicio en el eje vertical */
+    margin: 20px; /* Espaciado exterior */
 }
 
-/* Agrupación de campos de formulario */
-.form-group {
-    margin-bottom: 20px; /* Unifica el margen entre campos */
-}
-
-/* Estilo para etiquetas */
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-/* Estilo para los campos de entrada */
-.form-control {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
-}
-
-.form-control:focus {
-    border-color: #80bdff;
-    outline: none;
-}
-
-/* Estilos para la barra lateral */
+/* Estilo para la barra lateral */
 .sidebar {
-    width: 200px;
-    position: fixed;
-    height: 100%;
-    background-color: #f8f9fa;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    left: 0;
-    top: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con transparencia */
+    color: white; /* Texto blanco */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    width: 250px; /* Ancho fijo para la barra lateral */
+    margin-right: 20px; /* Espacio a la derecha */
 }
 
-/* Estilos para los botones de la barra lateral */
-.btn-sidebar {
-    display: block;
-    margin-bottom: 10px;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
+/* Estilo para el título principal de todas las páginas */
+.title {
+    text-align: center; /* Centra el texto */
+    margin: 20px 0; /* Espaciado superior e inferior */
+}
+
+/* Estilo para el mensaje de bienvenida */
+.welcome-message {
+    text-align: center; /* Centra el texto */
+    margin: 10px 0; /* Espaciado superior e inferior */
+}
+
+/* Estilo específico para la página de inicio de sesión */
+.login-body {
+    background-image: url('../static/neon.jpg'); /* Imagen de fondo */
+    background-size: cover; /* Asegura que la imagen cubra toda el área */
+    background-position: center; /* Centra la imagen de fondo */
+    color: orange; /* Color de texto */
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en una columna */
+    align-items: center; /* Centra los elementos */
+    justify-content: center; /* Centra verticalmente */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    padding: 20px; /* Espaciado interno */
+}
+
+.login-title {
+    font-size: 2em; /* Tamaño del título */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+/* Estilo para el formulario de inicio de sesión */
+.login-form {
+    width: 100%;
+    max-width: 400px; /* Limita el ancho del formulario */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Espacio entre campos */
+}
+
+label {
+    display: block; /* Cada etiqueta en una nueva línea */
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%; /* Ocupa todo el ancho del formulario */
+    padding: 10px; /* Espacio interno */
+    border: 1px solid #ccc; /* Borde de los campos */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilo para los botones */
+.btn {
+    padding: 10px 15px; /* Espacio interno para botones */
     border: none;
-    border-radius: 5px;
+    border-radius: 5px; /* Bordes redondeados */
     text-align: center;
-    font-size: 16px;
-    transition: background-color 0.2s ease;
-    width: 100%; /* Ajusta para que los botones ocupen todo el ancho */
+    font-size: 16px; /* Tamaño de fuente */
+    color: black; /* Texto negro por defecto en botones */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.2s ease; /* Transición suave para el fondo */
 }
 
-.btn-sidebar:hover {
-    background-color: #0056b3;
+/* Estilo para los botones de acción */
+.btn-action {
+    background-color: orange; /* Color de fondo naranja */
 }
 
-/* Botón "Ver Mi Perfil" */
-.btn-profile {
-    background-color: #28a745;
+.btn-action:hover {
+    background-color: darkorange; /* Color de fondo al pasar el mouse */
 }
 
-.btn-profile:hover {
-    background-color: #218838;
+/* Estilo para el grupo de botones */
+.button-group {
+    display: flex; /* Usar flexbox para organizar botones */
+    justify-content: space-between; /* Espacio entre los botones */
+    margin-top: 20px; /* Espacio superior */
 }
 
-/* Botones primarios */
-.btn-primary {
-    background-color: #007bff;
+/* Estilos para las tablas de ranking */
+.ranking-table {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    border-collapse: collapse; /* Colapsa bordes de las celdas */
+    margin-top: 20px; /* Espacio superior */
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
+.ranking-table th, .ranking-table td {
+    border: 1px solid #ccc; /* Borde para celdas */
+    padding: 10px; /* Espacio interno */
+    text-align: center; /* Alineación del texto */
 }
 
-/* Estilos para tablas */
-.table-container {
-    width: 90%;
-    margin: 30px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+.ranking-table th {
+    background-color: rgba(255, 165, 0, 0.7); /* Fondo naranja con transparencia para encabezados */
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+/* Estilo para los enlaces */
+a {
+    color: orange; /* Color de texto de los enlaces */
+    text-decoration: none; /* Sin subrayado */
 }
 
-th, td {
-    padding: 12px;
-    text-align: left;
-    vertical-align: middle;
-    border: 1px solid #dee2e6;
+a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+/* Estilo para los botones en la barra lateral */
+.sidebar-button {
+    display: inline-block; /* Para que se comporten como botones */
+    padding: 10px 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center; /* Centra el texto */
+    font-size: 16px; /* Tamaño de fuente */
+    color: black; /* Texto negro */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.2s ease; /* Transición suave para el fondo */
+    margin: 5px 0; /* Espaciado vertical entre botones */
 }
 
-th {
-    background-color: #f8f9fa;
-    font-weight: 600;
+/* Botones para participantes (naranja) */
+.sidebar-button.participant {
+    background-color: orange; /* Color de fondo naranja */
 }
 
-/* Botón de home */
-.btn-home {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
+.sidebar-button.participant:hover {
+    background-color: darkorange; /* Color de fondo al pasar el mouse */
 }
 
-.btn-home:hover {
-    background-color: #0056b3;
+/* Botones para administradores (azul) */
+.sidebar-button.admin {
+    background-color: blue; /* Color de fondo azul */
 }
 
-/* Otros botones */
-.btn-danger {
-    background-color: #dc3545;
+.sidebar-button.admin:hover {
+    background-color: darkblue; /* Color de fondo al pasar el mouse */
 }
 
-.btn-danger:hover {
-    background-color: #c82333;
+/* Estilos para el formulario de comparación */
+.comparison-form {
+    margin-top: 20px; /* Espacio superior */
 }
 
-.btn-info {
-    background-color: #28a745;
+.comparison-form label {
+    display: block; /* Coloca cada etiqueta en una nueva línea */
+    margin: 10px 0 5px; /* Margen para separar etiquetas y campos */
 }
 
-.btn-info:hover {
-    background-color: #218838;
+.comparison-form select {
+    width: 100%; /* Ancho completo del campo */
+    padding: 10px; /* Espacio interno */
+    margin-bottom: 15px; /* Espacio inferior */
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 4px; /* Bordes redondeados */
 }
 
-/* Hover y focus de campos */
-.form-control:hover {
-    border-color: #adb5bd;
-}
-
-.form-control:focus {
-    border-color: #66afe9;
-    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
-}
-
-/* Estilo para el contenido principal */
-main {
-    margin-left: 220px;
-    padding: 20px;
-    width: calc(100% - 220px);
-    box-sizing: border-box;
-}
-
-main h1 {
-    text-align: center; /* Corregido */
-}
-
-/* Estilo para el área de texto de reglas */
-.rules-textarea {
-    width: 100%;
-    height: 150px;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    resize: none;
-}
-
-/* Estilos para la tabla */
-.table th, .table td {
-    vertical-align: top;
+/* Estilo para el botón de comparar */
+.btn-action {
+    background-color: rgba(255, 165, 0, 0.9); /* Color naranja */
+    color: black; /* Color del texto */
 }

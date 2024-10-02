@@ -10,28 +10,30 @@
 <body>
     <div class="container">
         <nav class="sidebar">
-            {% if current_user.is_authenticated %}
-                <h2>Opciones</h2>
-                <ul>
-                    <li><a href="{{ url_for('user.rules') }}" class="btn btn-sidebar btn-profile">Normas del torneo</a></li>
-                    <li><a href="{{ url_for('user.user_data') }}" class="btn btn-sidebar btn-profile">Ver Mi Perfil</a></li>
-                    <li><a href="{{ url_for('user.participants') }}" class="btn btn-sidebar btn-profile">Ver Participantes</a></li>
+            <h2>Opciones</h2>
+            <ul>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('user.rules') }}" class="sidebar-button participant">Normas del torneo</a></li>
+                    <li><a href="{{ url_for('user.user_data') }}" class="sidebar-button participant">Ver Mi Perfil</a></li>
+                    <li><a href="{{ url_for('user.participants') }}" class="sidebar-button participant">Ver Participantes</a></li>
+                    <li><a href="{{ url_for('user.comparison') }}" class="sidebar-button participant">Comparar</a></li>
+
                     {% if current_user.is_admin %}
-                        <li><a href="{{ url_for('admin.view_users') }}" class="btn btn-sidebar btn-primary">Ver Usuarios</a></li>
-                        <li><a href="{{ url_for('admin.view_games') }}" class="btn btn-sidebar btn-primary">Ver Lista de Juegos</a></li>
+                        <li><a href="{{ url_for('admin.view_users') }}" class="sidebar-button admin">Ver Usuarios</a></li>
+                        <li><a href="{{ url_for('admin.view_games') }}" class="sidebar-button admin">Ver Lista de Juegos</a></li>
                     {% endif %}
-                    <li><a href="{{ url_for('auth.logout') }}" class="btn btn-sidebar btn-danger">Cerrar Sesión</a></li>
-                </ul>
-            {% else %}
-                <p>Por favor, <a href="{{ url_for('auth.login') }}" class="btn btn-home">inicia sesión</a> para acceder a más funciones.</p>
-            {% endif %}
+                    <li><a href="{{ url_for('auth.logout') }}" class="sidebar-button participant">Cerrar Sesión</a></li>
+                {% else %}
+                    <p>Por favor, <a href="{{ url_for('auth.login') }}" class="btn btn-home">inicia sesión</a> para acceder a más funciones.</p>
+                {% endif %}
+            </ul>
         </nav>
 
         <main>
-            <h1>Bienvenido al torneo de videojuegos</h1>
+            <h1 class="title">Bienvenido al torneo de videojuegos</h1>
 
             {% if current_user.is_authenticated %}
-                <p>Te damos la bienvenida, <strong>{{ current_user.username }}</strong>.</p>
+                <p class="welcome-message">Te damos la bienvenida, <strong>{{ current_user.username }}</strong>.</p>
             {% endif %}
 
             {% with messages = get_flashed_messages(with_categories=true) %}

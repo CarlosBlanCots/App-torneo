@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="container">
         <h1>Lista de Juegos</h1>
 
         {% if games %}
-            <table class="table">
+            <table class="ranking-table">
                 <thead>
                     <tr>
                         <th>Nombre del Juego</th>
@@ -32,12 +31,15 @@
         {% endif %}
 
         <div class="button-container">
-            <a href="{{ url_for('admin.add_game') }}" class="btn btn-primary">Añadir Juego</a>
-            <a href="{{ url_for('admin.edit_games') }}" class="btn btn-primary">Editar Juegos</a>
+            <a href="{{ url_for('admin.add_game') }}">
+                <button type="button" class="btn btn-primary">Añadir Juego</button>
+            </a>
+            <a href="{{ url_for('admin.edit_games') }}">
+                <button type="button" class="btn btn-primary">Editar Juegos</button>
+            </a>
             <a href="{{ url_for('user.home') }}">
-                <button type="button" class="btn-secondary">Inicio</button>
+                <button type="button" class="btn btn-action">Inicio</button>
             </a>
         </div>
-    </div>
 </body>
 </html>

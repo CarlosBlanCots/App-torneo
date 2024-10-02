@@ -7,16 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="container">
         <h1>Editar Normas del Torneo</h1>
         <form method="POST" action="{{ url_for('admin.modify_rules') }}">
             <textarea name="rules" rows="10" cols="50" placeholder="Introduce las normas aquí...">{{ current_rules | join('\n') }}</textarea>
             <br>
             <button type="submit" class="btn-primary">Guardar Normas</button>
         </form>
-        <a href="{{ url_for('user.rules') }}">
-            <button type="button" class="btn-secondary">Ver Normas</button>
-        </a>
-    </div>
 </body>
 </html>

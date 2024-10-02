@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, session
+from flask import Blueprint, render_template, redirect, url_for, flash, session, request
 from flask_login import login_required, current_user
 from models import db, User, Game, UserGameScore
 
@@ -68,3 +68,44 @@ def rules():
 def participants():
     users = User.query.all()  # Obtiene todos los usuarios
     return render_template('participants.html', users=users)
+
+@user_bp.route('/comparativa', methods=['GET', 'POST'])
+@login_required
+def comparison():
+    # Obtener todos los usuarios (participantes)
+    users = User.query.all()  # Asegúrate de que tienes acceso a este modelo
+    games = Game.query.all()  # Obtén todos los juegos
+
+    if request.method == 'POST':
+        player1_id = request.form['player1_id']
+        player2_id = request.form['player2_id']
+        game_id = request.form['game_id']
+
+        player1_scores = UserGameScore.query.filter_by(user_id=player1_id, game_id=game_id).all()
+        player2_scores = UserGameScore.query.filter_by(user_id=player2_id, game_id=game_id).all()
+
+        # Organizar datos para la gráfica
+        scores_by_date_player1 = {}
+        scores_by_date_player2 = {}
+
+        for score in player1_scores:
+            date = score.date.date()
+            if date not in scores_by_date_player1:
+                scores_by_date_player1[date] = []
+            scores_by_date_player1[date].append(score.score)
+
+        for score in player2_scores:
+            date = score.date.date()
+            if date not in scores_by_date_player2:
+                scores_by_date_player2[date] = []
+            scores_by_date_player2[date].append(score.score)
+
+        date_labels = sorted(set(scores_by_date_player1.keys()).union(scores_by_date_player2.keys()))
+        max_scores_player1 = [max(scores_by_date_player1.get(date, [0])) for date in date_labels]
+        max_scores_player2 = [max(scores_by_date_player2.get(date, [0])) for date in date_labels]
+
+        return render_template('comparison.html', date_labels=date_labels, max_scores_player1=max_scores_player1, max_scores_player2=max_scores_player2, games=games, users=users)
+
+    # Si la solicitud es GET, pasamos juegos y usuarios a la plantilla
+    return render_template('comparison.html', games=games, users=users)
+

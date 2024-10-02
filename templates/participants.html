@@ -7,30 +7,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <h1>Lista de Participantes</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre de Usuario</th>
-                <th>Juegos y Puntuación</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
+        <h1>Lista de Participantes</h1>
+        <table class="ranking-table">
+            <thead>
                 <tr>
-                    <td>{{ user.username }}</td>
-                    <td>
-                        {% for score in user.game_scores %}
-                            <div>{{ score.game.name }}: {{ score.score }}</div>
-                        {% endfor %}
-                    </td>
+                    <th>Nombre de Usuario</th>
+                    <th>Juegos y Puntuación</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            {% for score in user.game_scores %}
+                                <div>{{ score.game.name }}: {{ score.score }}</div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2">No hay participantes registrados.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ url_for('user.home') }}">
-        <button type="button" class="btn-secondary">Inicio</button>
-    </a>
+        <a href="{{ url_for('user.home') }}">
+            <button type="button" class="btn btn-action">Inicio</button>
+        </a>
 </body>
 </html>

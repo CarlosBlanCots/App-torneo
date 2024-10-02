@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="container">
         <h1>Mis Datos Personales</h1>
 
         {% if current_user.is_authenticated %}
@@ -15,7 +14,7 @@
             <p><strong>Email:</strong> {{ current_user.email }}</p>
 
             <h2>Juegos Registrados</h2>
-            <table>
+            <table class="ranking-table">
                 <thead>
                     <tr>
                         <th>Juego</th>
@@ -46,8 +45,7 @@
 
         <br>
         <a href="{{ url_for('user.home') }}">
-            <button type="button" class="btn-secondary">Inicio</button>
+            <button type="button" class="btn btn-action">Inicio</button>
         </a>
-    </div>
 </body>
 </html>
