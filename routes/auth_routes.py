@@ -1,15 +1,18 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+# auth_routes.py: Define las rutas de autenticación, registro y gestión de usuarios.
+
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from models import db
 from models.user import User
 from models.game import Game
-from models.user_game_score import UserGameScore  # Modelo que relaciona usuarios, juegos y puntuaciones
-from forms import EditUserForm, GameForm, AdminRegistrationForm, RegistrationForm, LoginForm
+from models.user_game_score import UserGameScore
+from forms import AdminRegistrationForm, RegistrationForm, LoginForm
 
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
+    # Maneja el registro de nuevos usuarios, con la posibilidad de crear un administrador si es el primer registro.
     if User.query.count() == 0:
         form = AdminRegistrationForm()
         if form.validate_on_submit():
@@ -50,9 +53,9 @@ def register():
 
     return render_template('register.html', form=form)
 
-
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    # Maneja el inicio de sesión de usuarios existentes.
     if current_user.is_authenticated:
         return redirect(url_for('user.home'))
 
@@ -71,6 +74,7 @@ def login():
 @auth_bp.route('/logout')
 @login_required
 def logout():
+    # Maneja la acción de cierre de sesión.
     logout_user()
     flash('Has cerrado sesión.', 'info')
     return redirect(url_for('auth.login'))

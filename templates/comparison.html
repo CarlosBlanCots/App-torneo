@@ -1,3 +1,4 @@
+<!-- Plantilla utilizada para la comparativa de puntuaciones entre jugadores -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,34 +9,40 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-        <h1>Comparativa de Puntuaciones entre Jugadores</h1>
+    <!-- Título de la página -->
+    <h1>Comparativa de Puntuaciones entre Jugadores</h1>
 
-        <form method="POST" class="comparison-form">
-            <label for="player1_id">Jugador 1:</label>
-            <select name="player1_id" id="player1_id" required>
-                {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.username }}</option>
-                {% endfor %}
-            </select>
+    <!-- Formulario para seleccionar jugadores y juego a comparar -->
+    <form method="POST" class="comparison-form">
+        <label for="player1_id">Jugador 1:</label>
+        <!-- Selector para el primer jugador -->
+        <select name="player1_id" id="player1_id" required>
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
 
-            <label for="player2_id">Jugador 2:</label>
-            <select name="player2_id" id="player2_id" required>
-                {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.username }}</option>
-                {% endfor %}
-            </select>
+        <label for="player2_id">Jugador 2:</label>
+        <!-- Selector para el segundo jugador -->
+        <select name="player2_id" id="player2_id" required>
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
 
-            <label for="game">Seleccionar Juego:</label>
-            <select name="game_id" id="game" required>
-                {% for game in games %}
-                    <option value="{{ game.id }}">{{ game.name }}</option>
-                {% endfor %}
-            </select>
+        <label for="game">Seleccionar Juego:</label>
+        <!-- Selector para elegir el juego -->
+        <select name="game_id" id="game" required>
+            {% for game in games %}
+                <option value="{{ game.id }}">{{ game.name }}</option>
+            {% endfor %}
+        </select>
 
-            <button type="submit" class="btn btn-action">Comparar</button>
-        </form>
+        <!-- Botón para enviar el formulario y comparar -->
+        <button type="submit" class="btn btn-action">Comparar</button>
+    </form>
 
-        {% if date_labels %}
+    {% if date_labels %}
         <canvas id="comparisonChart" width="400" height="200"></canvas>
 
         <script>
@@ -43,6 +50,7 @@
             const maxScoresPlayer1 = {{ max_scores_player1|tojson }};
             const maxScoresPlayer2 = {{ max_scores_player2|tojson }};
 
+            // Datos para el gráfico de comparación
             const data = {
                 labels: dateLabels,
                 datasets: [
@@ -63,6 +71,7 @@
                 ]
             };
 
+            // Configuración del gráfico
             const config = {
                 type: 'bar', // Cambiar a gráfico de barras
                 data: data,
@@ -75,14 +84,16 @@
                 }
             };
 
+            // Creación del gráfico
             const comparisonChart = new Chart(
                 document.getElementById('comparisonChart'),
                 config
             );
         </script>
-        {% endif %}
-        <a href="{{ url_for('user.home') }}">
-            <button type="button" class="btn btn-action">Inicio</button>
-        </a>
+    {% endif %}
+    <!-- Botón para volver a la página de inicio -->
+    <a href="{{ url_for('user.home') }}">
+        <button type="button" class="btn btn-action">Inicio</button>
+    </a>
 </body>
 </html>

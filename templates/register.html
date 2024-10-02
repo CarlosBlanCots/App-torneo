@@ -1,3 +1,4 @@
+<!-- Plantilla para el formulario de registro de usuarios -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,38 +8,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="container">
         <h1>Registro</h1>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="alert-container">
                     {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                        <div class="alert alert-{{ category }}">{{ message }}</div> <!-- Mensaje de alerta si hay errores -->
                     {% endfor %}
                 </div>
             {% endif %}
         {% endwith %}
+
         <form method="POST" action="{{ url_for('auth.register') }}">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 <label for="username">Nombre de Usuario:</label>
-                {{ form.username(class="form-control", size=32, placeholder="Nombre de Usuario") }}
+                {{ form.username(class="form-control", size=32, placeholder="Nombre de Usuario") }} <!-- Campo de nombre de usuario -->
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                {{ form.email(class="form-control", size=32, placeholder="Email") }}
+                {{ form.email(class="form-control", size=32, placeholder="Email") }} <!-- Campo de email -->
             </div>
             <div class="form-group">
                 <label for="password">Contraseña:</label>
-                {{ form.password(class="form-control", size=32, placeholder="Contraseña") }}
+                {{ form.password(class="form-control", size=32, placeholder="Contraseña") }} <!-- Campo de contraseña -->
             </div>
             <div class="form-group">
                 <label for="confirm_password">Confirmar Contraseña:</label>
-                {{ form.confirm_password(class="form-control", size=32, placeholder="Confirmar Contraseña") }}
+                {{ form.confirm_password(class="form-control", size=32, placeholder="Confirmar Contraseña") }} <!-- Campo para confirmar contraseña -->
             </div>
+
             {% if form.__class__.__name__ == 'RegistrationForm' %}
                 <div class="form-group">
-                    <label for="games">Selecciona los juegos en los que participarás:</label>
+                    <label for="games">Selecciona los juegos en los que participarás:</label> <!-- Selección de juegos -->
                     <div class="form-check">
                         {% for game_id, game_name in form.games.choices %}
                             <div class="form-check d-flex justify-content-between align-items-center">
@@ -53,10 +55,10 @@
                     {% endfor %}
                 </div>
             {% endif %}
+
             <div class="form-group">
                 {{ form.submit(class="btn btn-primary", value="Registrar") }}
             </div>
         </form>
-    </div>
 </body>
 </html>

@@ -1,3 +1,5 @@
+# Define el modelo User para la base de datos
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import UserMixin
@@ -12,11 +14,13 @@ class User(db.Model, UserMixin):
     password_hash = Column(String(128), nullable=False)
     is_admin = Column(Boolean, default=False)
 
-    # Relación con UserGameScore para gestionar los juegos y puntuaciones
+    # Relación con UserGameScore para gestionar puntuaciones
     game_scores = relationship('UserGameScore', back_populates='user')
 
     def set_password(self, password):
+        """Establece la contraseña del usuario."""
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
+        """Verifica la contraseña del usuario."""
         return check_password_hash(self.password_hash, password)

@@ -1,4 +1,4 @@
-from flask import Blueprint
+# Inicializa y registra los blueprints para las rutas
 
 # Crear blueprints para cada conjunto de rutas
 from .auth_routes import auth_bp

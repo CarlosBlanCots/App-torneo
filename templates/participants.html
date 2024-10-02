@@ -1,3 +1,4 @@
+<!-- Plantilla para mostrar la lista de participantes y sus puntuaciones -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,20 +22,20 @@
                         <td>{{ user.username }}</td>
                         <td>
                             {% for score in user.game_scores %}
-                                <div>{{ score.game.name }}: {{ score.score }}</div>
+                                <div>{{ score.game.name }}: {{ score.score }}</div> <!-- Muestra la puntuación por cada juego -->
                             {% endfor %}
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="2">No hay participantes registrados.</td>
+                        <td colspan="2">No hay participantes registrados.</td> <!-- Mensaje en caso de que no haya participantes -->
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <a href="{{ url_for('user.home') }}">
-            <button type="button" class="btn btn-action">Inicio</button>
+            <button type="button" class="btn btn-action">Inicio</button> <!-- Botón para volver al inicio -->
         </a>
 </body>
 </html>

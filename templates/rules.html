@@ -1,3 +1,4 @@
+<!-- Plantilla para mostrar las normas del torneo -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +12,7 @@
         <div class="rules-list">
             <ul>
                 {% for regla in reglas %}
-                    <li><strong>{{ regla }}</strong></li>
+                    <li><strong>{{ regla }}</strong></li> <!-- Mostrar cada regla del torneo -->
                 {% endfor %}
             </ul>
         </div>
@@ -19,7 +20,7 @@
         <div class="button-group">
             {% if current_user.is_admin %}
                 <a href="{{ url_for('admin.modify_rules') }}">
-                    <button type="button" class="btn btn-action">Modificar Normas</button>
+                    <button type="button" class="btn btn-action">Modificar Normas</button> <!-- Botón solo visible para administradores -->
                 </a>
             {% endif %}
 

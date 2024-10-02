@@ -1,3 +1,4 @@
+<!-- Plantilla utilizada para editar juegos existentes -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,21 +8,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Editar Juegos</h1>
-        <form action="{{ url_for('admin.update_games') }}" method="post">
-            {% for game in games %}
-                <div class="game-edit">
-                    <label for="game_name_{{ game.id }}">Nombre del Juego:</label>
-                    <input type="text" name="game_name_{{ game.id }}" value="{{ game.name }}" required>
-                    <br>
-                    <label for="game_rules_{{ game.id }}" style="margin-top: 10px;">Reglas del Juego:</label>
-                    <textarea name="game_rules_{{ game.id }}" required class="form-control textarea-rules">{{ game.rules }}</textarea>
-                </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-sidebar btn-profile">Actualizar Juegos</button>
-            <a href="{{ url_for('admin.view_games') }}" class="btn btn-secondary">Volver a la lista de Juegos</a>
-        </form>
-    </div>
+    <!-- Título de la página -->
+    <h1>Editar Juegos</h1>
+    <form action="{{ url_for('admin.update_games') }}" method="post">
+        {% for game in games %}
+            <div class="game-edit">
+                <label for="game_name_{{ game.id }}">Nombre del Juego:</label>
+                <!-- Campo de texto para el nombre del juego -->
+                <input type="text" name="game_name_{{ game.id }}" value="{{ game.name }}" required>
+                <br>
+                <label for="game_rules_{{ game.id }}" style="margin-top: 10px;">Reglas del Juego:</label>
+                <!-- Área de texto para las reglas del juego -->
+                <textarea name="game_rules_{{ game.id }}" required class="form-control textarea-rules">{{ game.rules }}</textarea>
+            </div>
+        {% endfor %}
+        <!-- Botón para enviar el formulario y actualizar los juegos -->
+        <button type="submit" class="btn btn-sidebar btn-profile">Actualizar Juegos</button>
+    </form>
 </body>
 </html>

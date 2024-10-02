@@ -1,3 +1,4 @@
+<!-- Plantilla para la página de inicio del torneo de videojuegos -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Librería de jQuery para facilitar el manejo de pestañas -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Librería de jQuery para el manejo de pestañas -->
 </head>
 <body>
     <div class="container">
@@ -40,7 +41,7 @@
                 {% if messages %}
                     <ul>
                         {% for category, message in messages %}
-                            <li class="{{ category }}">{{ message }}</li>
+                            <li class="{{ category }}">{{ message }}</li> <!-- Mensaje flash para notificaciones -->
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -50,7 +51,7 @@
             <div class="tabs">
                 <ul class="tab-links">
                     {% for ranking in rankings %}
-                        <li><a href="#tab-{{ loop.index }}">{{ ranking.game }}</a></li>
+                        <li><a href="#tab-{{ loop.index }}">{{ ranking.game }}</a></li> <!-- Pestañas para cada juego -->
                     {% endfor %}
                 </ul>
 
@@ -67,11 +68,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for rank in ranking.ranking %}
+                                {% for rank in ranking.ranking[:10] %} {# Solo toma los primeros 10 elementos #}
                                 <tr>
                                     <td>{{ rank.position }}</td>
                                     <td>{{ rank.username }}</td>
-                                    <td>{{ rank.score }}</td>
+                                    <td>{{ rank.score }}</td> <!-- Datos de cada participante en el ranking -->
                                 </tr>
                                 {% endfor %}
                             </tbody>

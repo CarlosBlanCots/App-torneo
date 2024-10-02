@@ -1,8 +1,11 @@
+# Este archivo define los formularios utilizados en la aplicación.
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField, SelectMultipleField, IntegerField, FieldList, FormField, SelectField
+from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField, SelectMultipleField, IntegerField, FieldList
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 
 class LoginForm(FlaskForm):
+    # Formulario para iniciar sesión.
     email = StringField(
         'Email',
         validators=[
@@ -18,6 +21,7 @@ class LoginForm(FlaskForm):
 
 
 class AdminRegistrationForm(FlaskForm):
+    # Formulario para registrar un nuevo administrador.
     username = StringField(
         'Nombre de Usuario',
         validators=[
@@ -50,6 +54,7 @@ class AdminRegistrationForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
+    # Formulario para registrar un nuevo usuario.
     username = StringField(
         'Nombre de Usuario',
         validators=[
@@ -85,9 +90,8 @@ class RegistrationForm(FlaskForm):
     )
     submit = SubmitField('Registrar')
 
-from wtforms import FieldList, IntegerField
-
 class EditUserForm(FlaskForm):
+    # Formulario para editar los datos de un usuario.
     username = StringField('Nombre de usuario', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
     is_admin = BooleanField('Administrador')
@@ -99,10 +103,8 @@ class EditUserForm(FlaskForm):
     scores = FieldList(IntegerField('Puntuación'), min_entries=0)  # Agrega un campo de lista para las puntuaciones
     submit = SubmitField('Guardar Cambios')
 
-
-
-
 class GameSelectionForm(FlaskForm):
+    # Formulario para seleccionar juegos.
     games = SelectMultipleField(
         'Selecciona los juegos',
         choices=[],  # Inicializamos la lista de opciones vacía
@@ -110,13 +112,14 @@ class GameSelectionForm(FlaskForm):
     )
     submit = SubmitField('Guardar Selección')
 
-
 class GameForm(FlaskForm):
+    # Formulario para añadir un nuevo juego.
     name = StringField('Nombre del Juego', validators=[DataRequired()])
     rules = TextAreaField('Reglas del Juego')
     submit = SubmitField('Añadir Juego')
 
 class RulesForm(FlaskForm):
+    # Formulario para guardar las reglas del torneo.
     rules = TextAreaField(
         'Reglas del Torneo',
         validators=[DataRequired(message="Este campo es obligatorio.")]

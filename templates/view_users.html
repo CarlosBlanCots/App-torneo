@@ -1,3 +1,4 @@
+<!-- Plantilla para mostrar la lista de usuarios -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,6 +10,7 @@
 <body>
     <h1>Lista de Usuarios</h1>
 
+    <!-- Mostrar mensajes flash -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -19,13 +21,14 @@
         {% endif %}
     {% endwith %}
 
+    <!-- Tabla para mostrar los usuarios registrados -->
     <table class="ranking-table">
         <thead>
             <tr>
                 <th>Nombre de Usuario</th>
                 <th>Email</th>
                 <th>Admin</th>
-                <th>Acciones</th>
+                <th>Acciones</th> <!-- Acciones para editar o eliminar usuarios -->
             </tr>
         </thead>
         <tbody>
@@ -36,16 +39,16 @@
                     <td>{{ 'Sí' if user.is_admin else 'No' }}</td>
                     <td>
                         <a href="{{ url_for('admin.edit_user', user_id=user.id) }}">
-                            <button type="button" class="btn btn-primary">Editar</button>
+                            <button type="button" class="btn btn-primary">Editar</button> <!-- Botón para editar usuario -->
                         </a>
                         <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button> <!-- Botón para eliminar usuario -->
                         </form>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">No hay usuarios registrados.</td>
+                    <td colspan="4">No hay usuarios registrados.</td> <!-- Mensaje si no hay usuarios -->
                 </tr>
             {% endfor %}
         </tbody>

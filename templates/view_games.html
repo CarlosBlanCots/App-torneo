@@ -1,3 +1,4 @@
+<!-- Plantilla para mostrar la lista de juegos y sus reglas -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,21 +22,21 @@
                     {% for game in games %}
                         <tr>
                             <td>{{ game.name }}</td>
-                            <td>{{ game.rules }}</td>
+                            <td>{{ game.rules }}</td> <!-- Muestra las reglas del juego -->
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         {% else %}
-            <p>No hay juegos registrados.</p>
+            <p>No hay juegos registrados.</p> <!-- Mensaje en caso de que no existan juegos registrados -->
         {% endif %}
 
         <div class="button-container">
             <a href="{{ url_for('admin.add_game') }}">
-                <button type="button" class="btn btn-primary">Añadir Juego</button>
+                <button type="button" class="btn btn-primary">Añadir Juego</button> <!-- Opción para añadir un nuevo juego -->
             </a>
             <a href="{{ url_for('admin.edit_games') }}">
-                <button type="button" class="btn btn-primary">Editar Juegos</button>
+                <button type="button" class="btn btn-primary">Editar Juegos</button> <!-- Opción para editar juegos existentes -->
             </a>
             <a href="{{ url_for('user.home') }}">
                 <button type="button" class="btn btn-action">Inicio</button>

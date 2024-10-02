@@ -1,3 +1,4 @@
+<!-- Plantilla utilizada para editar la información del usuario -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,48 +8,47 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Editar Usuario</h1>
-        <form method="POST">
-            {{ form.hidden_tag() }}
+    <!-- Título de la página -->
+    <h1>Editar Usuario</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
 
-            <div class="form-group">
-                <label for="username">Nombre de usuario:</label>
-                {{ form.username(class="form-control", size=32) }}
-            </div>
+        <div class="form-group">
+            <label for="username">Nombre de usuario:</label>
+            {{ form.username(class="form-control", size=32) }} <!-- Campo para el nombre de usuario -->
+        </div>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                {{ form.email(class="form-control", size=32) }}
-            </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            {{ form.email(class="form-control", size=32) }} <!-- Campo para el correo electrónico -->
+        </div>
 
-            {% if current_user.is_admin %}
-            <div class="form-group">
-                <label for="is_admin">Administrador:</label>
-                {{ form.is_admin(class="form-check-input") }}
-            </div>
-            {% endif %}
+        {% if current_user.is_admin %}
+        <div class="form-group">
+            <label for="is_admin">Administrador:</label>
+            {{ form.is_admin(class="form-check-input") }} <!-- Opción para marcar como administrador -->
+        </div>
+        {% endif %}
 
-            <div class="form-group">
-                <label for="games">Selecciona los juegos:</label>
-                <div>
-                    {% for game in games %}
-                        <div>
-                            <input type="checkbox" name="games" value="{{ game.id }}"
-                                   {% if game.id in user_game_ids %} checked {% endif %}>
-                            {{ game.name }}
-                            <input type="number" name="scores_{{ game.id }}" min="0"
-                                   placeholder="Puntuación" value="{{ user_game_scores.get(game.id, 0) }}"
-                                   class="form-control" style="width: 100px;">
-                        </div>
-                    {% endfor %}
-                </div>
+        <div class="form-group">
+            <label for="games">Selecciona los juegos:</label>
+            <div>
+                {% for game in games %}
+                    <div>
+                        <input type="checkbox" name="games" value="{{ game.id }}"
+                               {% if game.id in user_game_ids %} checked {% endif %}>
+                        {{ game.name }} <!-- Nombre del juego -->
+                        <input type="number" name="scores_{{ game.id }}" min="0"
+                               placeholder="Puntuación" value="{{ user_game_scores.get(game.id, 0) }}"
+                               class="form-control" style="width: 100px;"> <!-- Campo para la puntuación -->
+                    </div>
+                {% endfor %}
             </div>
+        </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
-            </div>
-        </form>
-    </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Guardar cambios</button> <!-- Botón para guardar los cambios -->
+        </div>
+    </form>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<!-- Plantilla utilizada para editar las normas del torneo -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,11 +8,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-        <h1>Editar Normas del Torneo</h1>
-        <form method="POST" action="{{ url_for('admin.modify_rules') }}">
-            <textarea name="rules" rows="10" cols="50" placeholder="Introduce las normas aquí...">{{ current_rules | join('\n') }}</textarea>
-            <br>
-            <button type="submit" class="btn-primary">Guardar Normas</button>
-        </form>
+    <!-- Título de la página -->
+    <h1>Editar Normas del Torneo</h1>
+    <form method="POST" action="{{ url_for('admin.modify_rules') }}">
+        <!-- Área de texto para introducir las normas del torneo -->
+        <textarea name="rules" rows="10" cols="50" placeholder="Introduce las normas aquí...">{{ current_rules | join('\n') }}</textarea>
+        <br>
+        <!-- Botón para enviar el formulario y guardar las normas -->
+        <button type="submit" class="btn-primary">Guardar Normas</button>
+    </form>
 </body>
 </html>

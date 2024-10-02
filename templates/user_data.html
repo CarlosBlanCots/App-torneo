@@ -1,3 +1,4 @@
+<!-- Plantilla para mostrar los datos personales del usuario -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,19 +29,19 @@
                             <tr>
                                 <td>{{ user_game.game.name }}</td>
                                 <td>{{ user_game.score }}</td>
-                                <td>{{ rankings[user_game.game_id] }}</td> <!-- Uso del ranking calculado -->
+                                <td>{{ rankings[user_game.game_id] }}</td> <!-- Uso del ranking calculado por juego -->
                             </tr>
                         {% endfor %}
                     {% else %}
                         <tr>
-                            <td colspan="3">No tienes juegos registrados.</td>
+                            <td colspan="3">No tienes juegos registrados.</td> <!-- Mostrar si no hay juegos registrados -->
                         </tr>
                     {% endif %}
                 </tbody>
             </table>
 
         {% else %}
-            <p>Por favor, <a href="{{ url_for('auth.login') }}">inicia sesión</a> para ver tus datos personales.</p>
+            <p>Por favor, <a href="{{ url_for('auth.login') }}">inicia sesión</a> para ver tus datos personales.</p> <!-- Mensaje para usuarios no autenticados -->
         {% endif %}
 
         <br>

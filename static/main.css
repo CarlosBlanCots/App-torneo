@@ -1,192 +1,201 @@
-/* Estilo para el fondo de todas las páginas */
+/* Estilos generales utilizados en la aplicación web para un torneo de videojuegos */
+
 body {
-    background-image: url('../static/neon.jpg'); /* Asegúrate de que la ruta sea correcta */
-    background-size: cover; /* Asegura que la imagen cubra toda el área del fondo */
-    background-position: center; /* Centra la imagen de fondo */
-    color: orange; /* Cambia el color del texto de toda la página a naranja */
-    font-family: Arial, sans-serif; /* Fuente general para todo el cuerpo */
+    background-image: url('../static/neon.jpg');
+    background-size: cover;
+    background-position: center;
+    color: orange;
+    font-family: Arial, sans-serif;
 }
 
 /* Estilo para el contenedor principal de todas las páginas */
 .container {
-    display: flex; /* Usa flexbox para organizar el contenido */
-    flex-direction: row; /* Organiza en fila (horizontalmente) */
-    align-items: flex-start; /* Alinea al inicio en el eje vertical */
-    margin: 20px; /* Espaciado exterior */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 20px;
 }
 
 /* Estilo para la barra lateral */
 .sidebar {
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con transparencia */
-    color: white; /* Texto blanco */
-    padding: 20px; /* Espaciado interno */
-    border-radius: 10px; /* Bordes redondeados */
-    width: 250px; /* Ancho fijo para la barra lateral */
-    margin-right: 20px; /* Espacio a la derecha */
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    margin-right: 20px;
 }
 
 /* Estilo para el título principal de todas las páginas */
 .title {
-    text-align: center; /* Centra el texto */
-    margin: 20px 0; /* Espaciado superior e inferior */
+    text-align: center;
+    margin: 20px 0;
 }
 
 /* Estilo para el mensaje de bienvenida */
 .welcome-message {
-    text-align: center; /* Centra el texto */
-    margin: 10px 0; /* Espaciado superior e inferior */
+    text-align: center;
+    margin: 10px 0;
 }
 
 /* Estilo específico para la página de inicio de sesión */
 .login-body {
-    background-image: url('../static/neon.jpg'); /* Imagen de fondo */
-    background-size: cover; /* Asegura que la imagen cubra toda el área */
-    background-position: center; /* Centra la imagen de fondo */
-    color: orange; /* Color de texto */
+    background-image: url('../static/neon.jpg');
+    background-size: cover;
+    background-position: center;
+    color: orange;
 }
 
+/* Estilo para el contenedor del formulario de inicio de sesión */
 .login-container {
     display: flex;
-    flex-direction: column; /* Coloca los elementos en una columna */
-    align-items: center; /* Centra los elementos */
-    justify-content: center; /* Centra verticalmente */
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-    padding: 20px; /* Espaciado interno */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
 }
 
+/* Estilo para el título del formulario de inicio de sesión */
 .login-title {
-    font-size: 2em; /* Tamaño del título */
-    margin-bottom: 20px; /* Espacio inferior */
+    font-size: 2em;
+    margin-bottom: 20px;
 }
 
 /* Estilo para el formulario de inicio de sesión */
 .login-form {
     width: 100%;
-    max-width: 400px; /* Limita el ancho del formulario */
+    max-width: 400px;
 }
 
+/* Estilo para los grupos de campos en el formulario */
 .form-group {
-    margin-bottom: 15px; /* Espacio entre campos */
+    margin-bottom: 15px;
 }
 
+/* Estilo para las etiquetas de los campos del formulario */
 label {
-    display: block; /* Cada etiqueta en una nueva línea */
-    margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+    display: block;
+    margin-bottom: 5px;
 }
 
+/* Estilo para los campos de entrada del formulario */
 input[type="email"], input[type="password"] {
-    width: 100%; /* Ocupa todo el ancho del formulario */
-    padding: 10px; /* Espacio interno */
-    border: 1px solid #ccc; /* Borde de los campos */
-    border-radius: 5px; /* Bordes redondeados */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 /* Estilo para los botones */
 .btn {
-    padding: 10px 15px; /* Espacio interno para botones */
+    padding: 10px 15px;
     border: none;
-    border-radius: 5px; /* Bordes redondeados */
+    border-radius: 5px;
     text-align: center;
-    font-size: 16px; /* Tamaño de fuente */
-    color: black; /* Texto negro por defecto en botones */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.2s ease; /* Transición suave para el fondo */
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 /* Estilo para los botones de acción */
 .btn-action {
-    background-color: orange; /* Color de fondo naranja */
+    background-color: orange;
 }
 
 .btn-action:hover {
-    background-color: darkorange; /* Color de fondo al pasar el mouse */
+    background-color: darkorange;
 }
 
 /* Estilo para el grupo de botones */
 .button-group {
-    display: flex; /* Usar flexbox para organizar botones */
-    justify-content: space-between; /* Espacio entre los botones */
-    margin-top: 20px; /* Espacio superior */
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
 /* Estilos para las tablas de ranking */
 .ranking-table {
-    width: 100%; /* Ocupa todo el ancho disponible */
-    border-collapse: collapse; /* Colapsa bordes de las celdas */
-    margin-top: 20px; /* Espacio superior */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
 .ranking-table th, .ranking-table td {
-    border: 1px solid #ccc; /* Borde para celdas */
-    padding: 10px; /* Espacio interno */
-    text-align: center; /* Alineación del texto */
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
 }
 
 .ranking-table th {
-    background-color: rgba(255, 165, 0, 0.7); /* Fondo naranja con transparencia para encabezados */
+    background-color: rgba(255, 165, 0, 0.7);
 }
 
 /* Estilo para los enlaces */
 a {
-    color: orange; /* Color de texto de los enlaces */
-    text-decoration: none; /* Sin subrayado */
+    color: orange;
+    text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline; /* Subrayado al pasar el mouse */
-}
-/* Estilo para los botones en la barra lateral */
-.sidebar-button {
-    display: inline-block; /* Para que se comporten como botones */
-    padding: 10px 15px; /* Espaciado interno */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    text-align: center; /* Centra el texto */
-    font-size: 16px; /* Tamaño de fuente */
-    color: black; /* Texto negro */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.2s ease; /* Transición suave para el fondo */
-    margin: 5px 0; /* Espaciado vertical entre botones */
+    text-decoration: underline;
 }
 
-/* Botones para participantes (naranja) */
+/* Estilo para los botones en la barra lateral */
+.sidebar-button {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin: 5px 0;
+}
+
+/* Estilo para los botones de participantes (naranja) */
 .sidebar-button.participant {
-    background-color: orange; /* Color de fondo naranja */
+    background-color: orange;
 }
 
 .sidebar-button.participant:hover {
-    background-color: darkorange; /* Color de fondo al pasar el mouse */
+    background-color: darkorange;
 }
 
-/* Botones para administradores (azul) */
+/* Estilo para los botones de administradores (azul) */
 .sidebar-button.admin {
-    background-color: blue; /* Color de fondo azul */
+    background-color: blue;
 }
 
 .sidebar-button.admin:hover {
-    background-color: darkblue; /* Color de fondo al pasar el mouse */
+    background-color: darkblue;
 }
 
-/* Estilos para el formulario de comparación */
+/* Estilo para el formulario de comparación */
 .comparison-form {
-    margin-top: 20px; /* Espacio superior */
+    margin-top: 20px;
 }
 
+/* Estilo para las etiquetas del formulario de comparación */
 .comparison-form label {
-    display: block; /* Coloca cada etiqueta en una nueva línea */
-    margin: 10px 0 5px; /* Margen para separar etiquetas y campos */
+    display: block;
+    margin: 10px 0 5px;
 }
 
+/* Estilo para el campo de selección del formulario de comparación */
 .comparison-form select {
-    width: 100%; /* Ancho completo del campo */
-    padding: 10px; /* Espacio interno */
-    margin-bottom: 15px; /* Espacio inferior */
-    border: 1px solid #ccc; /* Borde del campo */
-    border-radius: 4px; /* Bordes redondeados */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 /* Estilo para el botón de comparar */
 .btn-action {
-    background-color: rgba(255, 165, 0, 0.9); /* Color naranja */
-    color: black; /* Color del texto */
+    background-color: rgba(255, 165, 0, 0.9);
+    color: black;
 }

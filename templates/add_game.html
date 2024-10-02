@@ -1,3 +1,4 @@
+<!-- Plantilla utilizada para añadir un nuevo juego en el sistema -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,31 +8,38 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Añadir Nuevo Juego</h1>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="alert-container">
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                <label for="name">Nombre del Juego:</label>
-                {{ form.name(class="form-control", size=32) }}
+    <!-- Título de la página -->
+    <h1>Añadir Nuevo Juego</h1>
+
+    <!-- Mensajes flash para notificaciones -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <!-- Alertas para mensajes de éxito o error -->
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
             </div>
-            <div class="form-group">
-                <label for="rules">Reglas del Juego:</label>
-                {{ form.rules(class="form-control", rows=5) }}
-            </div>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-primary", value="Añadir Juego") }}
-            </div>
-        </form>
-    </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Formulario para añadir un nuevo juego -->
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="name">Nombre del Juego:</label>
+            <!-- Campo para el nombre del juego -->
+            {{ form.name(class="form-control", size=32) }}
+        </div>
+        <div class="form-group">
+            <label for="rules">Reglas del Juego:</label>
+            <!-- Área de texto para las reglas del juego -->
+            {{ form.rules(class="form-control", rows=5) }}
+        </div>
+        <div class="form-group">
+            <!-- Botón para enviar el formulario -->
+            {{ form.submit(class="btn btn-primary", value="Añadir Juego") }}
+        </div>
+    </form>
 </body>
 </html>
